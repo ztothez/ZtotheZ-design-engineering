@@ -1,12 +1,14 @@
 # ZtotheZ Design Engineering
 
-[![Quality](https://img.shields.io/badge/quality-v3.1.0-blue)](#) [![npm](https://img.shields.io/npm/v/@ztothez/design-engineering)](#) [![GitHub](https://github.com/ztothez/ztothez-design-engineering)](#)
+[![Quality](https://img.shields.io/badge/quality-v3.1.1-blue)](#) [![npm](https://img.shields.io/npm/v/@ztothez/design-engineering)](#) [![GitHub](https://github.com/ztothez/ztothez-design-engineering)](#)
 
 ZtotheZ Design Engineering is a local-first MCP server and deterministic quality gate for building production UI and UX systems. It combines governance, product semantics, software architecture, usability evaluation, browser verification, and evidence-backed acceptance criteria.
 
 This project focuses on design engineering instead of style recommendation. It checks whether an interface supports real tasks, exposes coherent states, uses maintainable component boundaries, remains accessible, and produces verifiable evidence.
 
 **Version 3.1.0 delivers the V7 Structured Decision Library**: 18 typed `ZTDE-LIB-*` decision rules with per-rule SHA-256 provenance, ranked retrieval (`search_decision_rules`), deterministic scoped evaluation (`evaluate_decision`), product-fidelity verification (`verify-product-fidelity`), and full pilot & private-holdout qualification.
+
+**Version 3.1.1 fixes V4 pilot qualification** by accepting the optional `decisionSignals` emitted in runtime reports and documenting the delivery-pilot CLI commands required by the qualification gate.
 
 ## Current Capabilities
 
@@ -56,6 +58,11 @@ This project focuses on design engineering instead of style recommendation. It c
 - Versioned retrieval scope containing only explicitly approved distributable files (excludes local research and legacy archives)
 - MCP search tool with category filtering and deterministic result ordering
 
+## What's New in V3.1.1
+
+- **V4 Pilot Qualification Fix**: Runtime-report validation now accepts optional `decisionSignals` emitted by `verify-ui`, allowing `zz-design qualify-pilots` and `zz-design evaluate-v4` to consume those reports.
+- **Qualification CLI Documentation**: The V4 pilot commands `zz-design qualify-pilots` and `zz-design evaluate-v4` are documented in the release guidance used by the qualification gate.
+
 ## What's New in V3.1.0 (V7 Decision Library)
 
 - **Structured Decision Library (`model/decision-library.json`)**: 18 independently authored `ZTDE-LIB-*` rules covering accessibility, responsive reflow, state recovery, semantic tokens, heading hierarchy, truthful disclosure, and maintainability — each with measurable thresholds, counterexamples, verification methods, and SHA-256 provenance fingerprints.
@@ -88,11 +95,11 @@ This project focuses on design engineering instead of style recommendation. It c
 Install the verified public release:
 
 ```bash
-npm install -g @ztothez/design-engineering@3.1.0
+npm install -g @ztothez/design-engineering@3.1.1
 zz-design --version
 ```
 
-The matching package archive, checksums, offline manifest, and retrieval index are attached to the v3.1.0 GitHub Release.
+The matching package archive, checksums, offline manifest, and retrieval index are attached to the v3.1.1 GitHub Release.
 
 Build and test from source:
 
@@ -111,7 +118,7 @@ Build, install, and verify the distributable package:
 npm run package:smoke
 npm run release:pack
 npm run release:check
-npm install -g ./.ztothez-design-release/ztothez-design-engineering-3.1.0.tgz
+npm install -g ./.ztothez-design-release/ztothez-design-engineering-3.1.1.tgz
 zz-design --version
 ```
 
