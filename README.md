@@ -60,7 +60,7 @@ This project focuses on design engineering instead of style recommendation. It c
 
 - **Structured Decision Library (`model/decision-library.json`)**: 18 independently authored `ZTDE-LIB-*` rules covering accessibility, responsive reflow, state recovery, semantic tokens, heading hierarchy, truthful disclosure, and maintainability — each with measurable thresholds, counterexamples, verification methods, and SHA-256 provenance fingerprints.
 - **New MCP Tools**: `search_decision_rules` (deterministic ranked rule retrieval with explicit no-match abstention) and `evaluate_decision` (conflict-aware decision evaluation with declared evidence scope).
-- **New CLI Commands**: `zz-design query-library`, `zz-design qualify-decisions`, and `zz-design verify-product-fidelity`.
+- **New CLI Commands**: `zz-design query-library`, `zz-design qualify-decisions`, and `zz-design verify-product-fidelity` (alongside `zz-design qualify-pilots` and `zz-design evaluate-v4` for multi-product delivery pilot and locked-holdout evaluation).
 - **Product-Fidelity Verification**: Distinct product-shell contracts and automated multi-width checks (`375px`, `768px`, `1440px`) for AegisOPS, SceneStart, and Azure Optimizer, backed by owner visual review.
 - **Full V7 Qualification**: 13/13 pilot profiles, 18/18 decision rules qualified across all 3 pilots and all 3 private holdout projects, zero-drift provenance, and **247/247** root tests passing.
 

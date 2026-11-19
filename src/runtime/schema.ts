@@ -332,4 +332,5 @@ export const runtimeReportSchema = {
     verifierLimitations: z.array(z.string()),
     humanReviewRequired: z.array(z.string()),
   }),
+  decisionSignals: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])).optional(),
 };
