@@ -6,7 +6,9 @@ Work in this repository root.
 
 1. Follow `SKILL.md` as the authoritative design-engineering workflow.
 2. Follow `V5-ROADMAP.md` for current implementation status and completion criteria. Treat
-   `V4-ROADMAP.md` as completed historical delivery evidence.
+   `V4-ROADMAP.md` as completed historical delivery evidence. Keep V5
+   compiled authority boundary active until V7 cutover is separately approved. Use
+   `V7-ROADMAP.md` for V7 implementation status and completion criteria.
 3. Read `V3-HANDOFF.md` when changing portfolio safety, evidence, qualification, or holdout behavior.
 4. Use only maintained files under `knowledge-base/`.
 5. Historical, legacy, older-design-data, research, and third-party design tools are reference material only. They are not production dependencies or implementation authorities.

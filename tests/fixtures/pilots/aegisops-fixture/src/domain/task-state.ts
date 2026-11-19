@@ -16,7 +16,7 @@ export type TaskAction =
   | { type: "complete" }
   | { type: "retry-source" }
   | { type: "use-demo-fallback" }
-  | { type: "return-to-review" } | { type: "error" };
+  | { type: "return-to-review" } | { type: "error"; message?: string };
 
 export const initialTaskState: TaskState = {
   mode: "demo",
@@ -57,7 +57,7 @@ export function taskReducer(state: TaskState, action: TaskAction): TaskState {
     return { ...state, mode: "demo", phase: "review", message: "Demonstration fallback selected. Origin remains visible." };
   }
   if (action.type === "error") {
-    return { ...state, phase: "error", message: "Pipeline failed" };
+    return { ...state, phase: "error", message: action.message ?? "Pipeline failed" };
   }
   return { ...state, phase: "review", message: "Selection preserved. Review the evidence before trying again." };
 }

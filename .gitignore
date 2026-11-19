@@ -108,3 +108,11 @@ venv/
 *.pptx
 *.napkin
 *.zip
+
+node_modules
+Design Blueprint Generator/
+Read/
+V7-ANTIGRAVITY-INSTRUCTIONS.md
+V6-OWNER-REVIEW.md
+V7-AUDIT-REPORT.md
+V7-REVIEW-NEXT.md

@@ -23,8 +23,8 @@
     "compilerVersion": { "const": "1.0.0" },
     "product": { "const": "ZtotheZ Design Engineering" },
     "authority": { "const": "SKILL.md" },
-    "lifecycle": { "const": "shadow" },
-    "cutoverStatus": { "const": "not-authoritative-until-v5-item-8" },
+    "lifecycle": { "const": "active" },
+    "cutoverStatus": { "const": "approved" },
     "buildMetadata": {
       "type": "object",
       "additionalProperties": false,

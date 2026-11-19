@@ -8,11 +8,11 @@
   "compilerVersion": "1.0.0",
   "cutoverStatus": "not-authoritative-until-v5-item-8",
   "integrity": {
-    "admissionSha256": "b457377a684108c5b3ba14190895d3c26b939d10723a8ed995f5ca21a2aec7ff",
+    "admissionSha256": "d78873a798d10c388abca326660c8e25957090685e4b59dbc8a95d3bfcc7f384",
     "modelSha256": "051cd3c12a54b409998a0ab1ad0336e64468c24776a0c0e345df66f8bc1650f0",
-    "payloadSha256": "b84253c2d602dfc831172468c2b2cef8a01a249b75459b188b65d0ac536b0ef3",
+    "payloadSha256": "6d83060801d2304bceb2f9df9bd4d5604e72e1c0065433aa610ea4ef52e23d4c",
     "retrievalScopeSha256": "0fc9c7bc9b31f76744c9c4461d22cc6b8d8309f10ef6c6a10ae01f1d129d1c9d",
-    "ruleRegistrySha256": "8c9c36e279b11b6732fe8cc8c58aa7b56945f788413b4b6866ed0d2354ce9d94"
+    "ruleRegistrySha256": "76984ede7d0e52d079b1b9419984ce670483c14448e0e06e84e49bb7c94a9648"
   },
   "knowledge": {
     "admittedFileCount": 142,
@@ -359,7 +359,7 @@
         "authority": "authoritative",
         "category": "skill",
         "path": "SKILL.md",
-        "sha256": "bb0cf9f83099ba304f62810feca305a82352755a39135df9b20f889a4b2f06d2",
+        "sha256": "111b247e3ef9fc841fac49e0e46232a5576c7d2542ec074ceef0c98e2a1d03ce",
         "sourceId": "policy:ztothez-design-engineering-policy"
       }
     ],
@@ -425,7 +425,7 @@
         "package": "approved",
         "path": "knowledge-base/benchmarks/aegisops/interaction-journeys.json",
         "retrieval": "excluded",
-        "sha256": "80c67c70b35d867aafec51f02dee24851cfd3ad1cc15af6bffa20ed4e259ae7b",
+        "sha256": "fda51c9139b0d00f67fa59725ace31acbb81cae1922accda513214c50cf53770",
         "sourceRecord": "aegisops-owner-evidence"
       },
       {
@@ -1604,7 +1604,7 @@
         "package": "approved",
         "path": "knowledge-base/provenance.yaml",
         "retrieval": "excluded",
-        "sha256": "397da3c43d02b4c52ba39bb157362d35962559b618707dbbd3ef43f82e5b65de",
+        "sha256": "b20dbf7252d51124f24b5806a70bf816b0cc166bcbc1719973c12f5ae1f250b5",
         "sourceRecord": "ztothez-maintained"
       },
       {
@@ -1683,7 +1683,7 @@
   },
   "product": "ZtotheZ Design Engineering",
   "ruleRegistry": {
-    "ruleCount": 251,
+    "ruleCount": 269,
     "ruleIds": [
       "ZTDE-A11Y-001",
       "ZTDE-ARCH-001",
@@ -1819,6 +1819,24 @@
       "ZTDE-INFO-501",
       "ZTDE-INFO-601",
       "ZTDE-INFO-602",
+      "ZTDE-LIB-A11Y-001",
+      "ZTDE-LIB-A11Y-002",
+      "ZTDE-LIB-A11Y-003",
+      "ZTDE-LIB-A11Y-004",
+      "ZTDE-LIB-A11Y-005",
+      "ZTDE-LIB-HIER-001",
+      "ZTDE-LIB-HIER-002",
+      "ZTDE-LIB-MAINT-001",
+      "ZTDE-LIB-MAINT-002",
+      "ZTDE-LIB-RESP-001",
+      "ZTDE-LIB-RESP-002",
+      "ZTDE-LIB-STATE-001",
+      "ZTDE-LIB-STATE-002",
+      "ZTDE-LIB-TOKEN-001",
+      "ZTDE-LIB-TOKEN-002",
+      "ZTDE-LIB-TRUTH-001",
+      "ZTDE-LIB-TRUTH-002",
+      "ZTDE-LIB-TRUTH-003",
       "ZTDE-MNT-001",
       "ZTDE-MNT-002",
       "ZTDE-MNT-003",
@@ -1952,6 +1970,7 @@
       "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/raw-design-values-negative.json",
       "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/raw-design-values-positive.json",
       "knowledge-base/design-intelligence/repair-request.template.yaml",
+      "model/decision-library.json",
       "model/ztothez-design-engineering-model.json",
       "src/acceptance/evaluator.ts",
       "src/audit/rules/accessibility-name.ts",
@@ -1969,6 +1988,7 @@
       "src/authority/validator.ts",
       "src/comparison/evaluator.ts",
       "src/comparison/maintainer.ts",
+      "src/decision-library/evidence.ts",
       "src/design-intelligence/validator.ts",
       "src/design-plan/reconciliation.ts",
       "src/information-design/validator.ts",

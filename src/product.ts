@@ -3,7 +3,7 @@ export const PRODUCT_SHORT_NAME = "ZtotheZ Design Engineering";
 export const PRODUCT_ID = "ztothez-design-engineering";
 export const PACKAGE_NAME = "@ztothez/design-engineering";
 export const CLI_COMMANDS = ["ztothez-design", "zz-design"] as const;
-export const VERSION = "2.0.5";
+export const VERSION = "3.1.0";
 
 export function formatCliHelp(command: string = CLI_COMMANDS[0]): string {
   return [
@@ -16,6 +16,8 @@ export function formatCliHelp(command: string = CLI_COMMANDS[0]): string {
     `       ${command} retrieve-rules --brief PATH [--json]`,
     `       ${command} export-handoff --brief PATH --output PATH [--project-root PATH] [--json]`,
     `       ${command} shadow-evaluate [--runtime-root DIR] [--output DIR]`,
+    `       ${command} query-library [query] [--task NAME] [--platform NAME] [--product NAME] [--json]`,
+    `       ${command} qualify-decisions --evidence-root DIR --bundle FILE --product ID --source-digest SHA256`,
     `       ${command} generate-react --plan PATH --generation-root PATH --output PATH --portfolio-registry PATH [--json]`,
     `       ${command} repair-react --request PATH --generation-root PATH --target PATH --portfolio-registry PATH --contract PATH --url URL --profile ID --output PATH [--json]`,
     `       ${command} qualify-pilots --config PATH --evidence-root PATH [--project-root PATH] [--json]`,
@@ -26,6 +28,7 @@ export function formatCliHelp(command: string = CLI_COMMANDS[0]): string {
     `       ${command} validate-public-content [--root PATH] [--policy PATH] [--json]`,
     `       ${command} evaluate-knowledge-quality [--manifest PATH] [--project-root PATH] [--output DIR] [--json]`,
     `       ${command} qualify-source-removal [--manifest PATH] [--project-root PATH] [--output DIR] [--json]`,
+    `       ${command} verify-product-fidelity --contract PATH --url LOOPBACK_URL --output PATH [--json]`,
     `       ${command} portfolio validate-registry|inventory|capabilities|run-stage|snapshot|baseline|benchmark|verify-unchanged|report [options]`,
     "",
     `Without arguments, starts the ${PRODUCT_ID} MCP server over stdio.`,
@@ -46,6 +49,7 @@ export function formatCliHelp(command: string = CLI_COMMANDS[0]): string {
     `Use ${command} validate-public-content --help for V5 public repository privacy validation.`,
     `Use ${command} evaluate-knowledge-quality --help for V5 conflict, drift, provenance, and model parity evaluation.`,
     `Use ${command} qualify-source-removal --help for V5 source-removal qualification.`,
+    `Use ${command} verify-product-fidelity --help for product-owned structural fidelity evidence.`,
     `Use ${command} portfolio --help for local read-only benchmark commands.`,
     "",
   ].join("\n");

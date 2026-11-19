@@ -266,3 +266,31 @@ export async function checkChartContracts(
 
   appendIssues(findings, "ZTDE-RUNTIME-018", viewport, issues);
 }
+
+export async function checkExplicitSignals(
+  page: Page,
+  viewport: RuntimeViewport,
+  findings: RuntimeFinding[],
+): Promise<void> {
+  const explicit = await page.evaluate(() => {
+    const results: { ruleId: string; value: string }[] = [];
+    const elements = document.querySelectorAll("[data-ztothez-design-signal]");
+    for (const el of elements) {
+      const parts = (el.getAttribute("data-ztothez-design-signal") || "").split(":");
+      if (parts.length >= 2) {
+        results.push({ ruleId: parts[0]!.trim(), value: parts.slice(1).join(":").trim() });
+      }
+    }
+    return results;
+  });
+
+  for (const { ruleId, value } of explicit) {
+    findings.push({
+      checkId: "ZTDE-RUNTIME-EXPLICIT",
+      severity: "info",
+      message: `Unverified page declaration ${ruleId}; not qualification evidence`,
+      evidence: [value],
+      viewport: viewport.name,
+    });
+  }
+}

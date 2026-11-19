@@ -132,28 +132,44 @@ export async function checkTextContrast(
       );
     }
 
-    return [...document.body.querySelectorAll("*")]
+    let measuredCount = 0;
+    let normalCount = 0;
+    let skippedCount = 0;
+    let minimum: number | null = null;
+    const candidates = [...document.body.querySelectorAll("*")]
       .filter(
         (element) =>
           visible(element) &&
-          hasOwnRenderedText(element) &&
-          !element.closest("[data-ztothez-design-allow-contrast]"),
-      )
+          hasOwnRenderedText(element),
+      );
+    const issues = candidates
       .flatMap<BrowserIssue>((element): BrowserIssue[] => {
+        if (element.closest("[data-ztothez-design-allow-contrast]")) {
+          skippedCount += 1;
+          return [];
+        }
         let ancestor: Element | null = element;
         while (ancestor) {
-          if (Number.parseFloat(getComputedStyle(ancestor).opacity || "1") < 0.99) return [];
+          if (Number.parseFloat(getComputedStyle(ancestor).opacity || "1") < 0.99) {
+            skippedCount += 1;
+            return [];
+          }
           ancestor = ancestor.parentElement;
         }
         const style = getComputedStyle(element);
         const foreground = parseColor(style.color);
         const background = effectiveBackground(element);
-        if (!foreground || !background) return [];
+        if (!foreground || !background) { skippedCount += 1; return []; }
         const renderedForeground = composite(foreground, background);
         const ratio = contrast(renderedForeground, background);
         const fontSize = Number.parseFloat(style.fontSize);
         const fontWeight = Number.parseInt(style.fontWeight, 10) || 400;
         const largeText = fontSize >= 24 || (fontSize >= 18.66 && fontWeight >= 700);
+        measuredCount += 1;
+        if (!largeText) {
+          normalCount += 1;
+          minimum = minimum === null ? ratio : Math.min(minimum, ratio);
+        }
         const required = largeText ? 3 : 4.5;
         if (ratio + 0.01 >= required) return [];
         return [
@@ -170,9 +186,17 @@ export async function checkTextContrast(
         ];
       })
       .slice(0, 30);
+      return { issues, measuredCount, normalCount, skippedCount, minimum };
   });
 
-  appendIssues(findings, "ZTDE-RUNTIME-011", viewport, issues);
+  appendIssues(findings, "ZTDE-RUNTIME-011", viewport, issues.issues);
+  findings.push({ checkId: "ZTDE-RUNTIME-011-MEASURED", severity: "info",
+    message: "Text contrast measurement coverage recorded.",
+    evidence: [`Measured ${issues.measuredCount} text elements, including ${issues.normalCount} normal-sized samples; skipped ${issues.skippedCount}.`,
+      "Normal-text samples only; inputs, pseudo-elements, large text and unmodeled backgrounds need separate review."],
+    viewport: viewport.name,
+    measurement: { version: "1.0", kind: "normal-text-contrast", minimum: issues.minimum,
+      measuredCount: issues.normalCount, skippedCount: issues.skippedCount } });
 }
 
 export async function checkTouchTargets(
@@ -212,24 +236,28 @@ export async function checkTouchTargets(
       }
       const wrappingLabel = element.closest("label");
       if (wrappingLabel) rects.push(wrappingLabel.getBoundingClientRect());
-      const left = Math.min(...rects.map((rect) => rect.left));
-      const right = Math.max(...rects.map((rect) => rect.right));
-      const top = Math.min(...rects.map((rect) => rect.top));
-      const bottom = Math.max(...rects.map((rect) => rect.bottom));
-      return new DOMRect(left, top, right - left, bottom - top);
+      // A gap between a label and input is not clickable. Use an actual hit rectangle.
+      return rects.reduce((best, rect) => Math.min(rect.width, rect.height) > Math.min(best.width, best.height) ? rect : best);
     }
 
     const selector =
       'a[href], button:not([disabled]), input:not([type="hidden"]):not([disabled]), select:not([disabled]), textarea:not([disabled]), [role="button"], [role="switch"], [tabindex]:not([tabindex="-1"])';
-    return [...document.querySelectorAll(selector)]
+    let minimum: number | null = null;
+    let measuredCount = 0;
+    let skippedCount = 0;
+    const candidates = [...document.querySelectorAll(selector)]
       .filter(
         (element) =>
           visible(element) &&
-          !element.closest("[data-ztothez-design-allow-small-target]") &&
           !(element instanceof HTMLAnchorElement && getComputedStyle(element).display === "inline"),
-      )
+      );
+    const issues = candidates
       .flatMap<BrowserIssue>((element): BrowserIssue[] => {
+        if (element.closest("[data-ztothez-design-allow-small-target]")) { skippedCount += 1; return []; }
         const rect = expandedRect(element);
+        const size = Math.min(rect.width, rect.height);
+        minimum = minimum === null ? size : Math.min(minimum, size);
+        measuredCount += 1;
         const width = Math.round(rect.width * 10) / 10;
         const height = Math.round(rect.height * 10) / 10;
         const buttonLike = element.matches(
@@ -261,9 +289,17 @@ export async function checkTouchTargets(
         return [];
       })
       .slice(0, 30);
+      return { issues, minimum, measuredCount, skippedCount };
   });
 
-  appendIssues(findings, "ZTDE-RUNTIME-012", viewport, issues);
+  appendIssues(findings, "ZTDE-RUNTIME-012", viewport, issues.issues);
+  findings.push({ checkId: "ZTDE-RUNTIME-012-MEASURED", severity: "info",
+    message: "Interactive target measurement coverage recorded.",
+    evidence: [`Measured ${issues.measuredCount} interactive targets; skipped ${issues.skippedCount}.`,
+      "Inline text links are excluded. Dimensions do not establish keyboard operation or absence of occlusion."],
+    viewport: viewport.name,
+    measurement: { version: "1.0", kind: "effective-target-size", minimum: issues.minimum,
+      measuredCount: issues.measuredCount, skippedCount: issues.skippedCount } });
 }
 
 export async function checkReflowAndTextResize(
@@ -568,8 +604,11 @@ export async function checkReducedMotion(
         evidence: ["Set scroll-behavior to auto in prefers-reduced-motion contexts."],
       });
     }
-    return results.slice(0, 30);
+    return { issues: results.slice(0, 30), evaluatedCount: [...document.body.querySelectorAll("*")].length > 0 ? 1 : 0 };
   });
 
-  appendIssues(findings, "ZTDE-RUNTIME-016", viewport, issues);
+  appendIssues(findings, "ZTDE-RUNTIME-016", viewport, issues.issues);
+  if (issues.evaluatedCount > 0) {
+    findings.push({ checkId: "ZTDE-RUNTIME-016-MEASURED", severity: "info", message: "Reduced motion behavior was directly measured.", evidence: ["Evaluated page animations and transitions."], viewport: viewport.name });
+  }
 }

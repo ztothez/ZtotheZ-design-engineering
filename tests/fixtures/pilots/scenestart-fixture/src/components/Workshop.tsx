@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { createProduction, downloadText, exportProduction, projectKey } from "../domain/production";
+import { ProductionPreview } from "./ProductionPreview";
 
 export function Workshop() {
   const [handle, setHandle] = useState("");
   const [step, setStep] = useState(0);
   const [error, setError] = useState("");
   const [storageStatus, setStorageStatus] = useState("");
+  const project = createProduction(handle);
 
   const steps = [
     "Build your first production",
@@ -15,6 +18,7 @@ export function Workshop() {
   ];
 
   const handleNext = () => {
+    if (step === 0 && !/^[A-Za-z0-9_-]{2,8}$/.test(handle)) { setError('Enter a handle with 2 to 8 letters, numbers, underscores or hyphens.'); return; }
     setError("");
     setStep(s => s + 1);
   };
@@ -24,6 +28,7 @@ export function Workshop() {
     setStorageStatus("");
     try {
       localStorage.setItem("workshopHandle", value);
+      localStorage.setItem(projectKey, JSON.stringify(createProduction(value)));
       setError("");
     } catch {
       setError("Storage unavailable. Project retained in memory.");
@@ -33,6 +38,7 @@ export function Workshop() {
   const retryStorage = () => {
     try {
       localStorage.setItem("workshopHandle", handle);
+      localStorage.setItem(projectKey, JSON.stringify(project));
       setError("");
       setStorageStatus("Storage available. In-memory project saved locally.");
     } catch {
@@ -50,6 +56,7 @@ export function Workshop() {
           YOUR HANDLE
           <input
             value={handle}
+            maxLength={8}
             aria-label="Your Handle"
             onChange={e => persistHandle(e.target.value)}
           />
@@ -82,6 +89,7 @@ export function Workshop() {
     return (
       <div>
         <h2>{steps[4]}</h2>
+        <ProductionPreview project={project} playing />
         <button onClick={() => setStep(6)}>PAUSE</button>
       </div>
     );
@@ -100,12 +108,7 @@ export function Workshop() {
       <div>
         <p>You built a timed opening, escalation and ending.</p>
         <button onClick={() => {
-          const blob = new Blob(["test html"], { type: "text/html" });
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = "my-production.html";
-          a.click();
+          downloadText("my-production.html", exportProduction(project), "text/html");
         }}>EXPORT OFFLINE HTML</button>
         <a href="/studio">CONTINUE IN DEMO STUDIO</a>
       </div>

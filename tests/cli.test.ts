@@ -49,6 +49,7 @@ test("CLI help identifies the product, server, and both commands", () => {
   assert.match(help, /validate-public-content \[--root PATH\]/);
   assert.match(help, /evaluate-knowledge-quality \[--manifest PATH\]/);
   assert.match(help, /qualify-source-removal \[--manifest PATH\]/);
+  assert.match(help, /verify-product-fidelity --contract PATH/);
   assert.match(help, /portfolio validate-registry\|inventory\|capabilities\|run-stage\|snapshot\|baseline\|benchmark\|verify-unchanged\|report/);
   assert.match(portfolioUsage(CLI_COMMANDS[1]), /portfolio snapshot --project ID/);
   assert.match(portfolioUsage(CLI_COMMANDS[1]), /portfolio capabilities --project ID/);

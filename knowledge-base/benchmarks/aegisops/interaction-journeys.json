@@ -13,6 +13,14 @@
       ],
       "expectedNetwork": [
         {
+          "id": "health-controlled-failure",
+          "method": "GET",
+          "urlIncludes": "/health",
+          "status": 500,
+          "minOccurrences": 1,
+          "maxOccurrences": 1
+        },
+        {
           "id": "pipeline-controlled-failure",
           "method": "POST",
           "urlIncludes": "/run",

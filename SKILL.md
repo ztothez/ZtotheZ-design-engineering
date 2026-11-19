@@ -19,17 +19,34 @@ Use ZtotheZ Design Engineering to create task-centered interfaces whose visual s
 
 ## Knowledge Retrieval Workflow
 
-### Step 1: Search The Approved Scope
+### Step 1: Evaluate Structured Decisions
 
-Use `search_design_knowledge` when the task needs guidance beyond this skill. Write a specific query containing the design problem, relevant quality attribute, and product context. Restrict `categories` when the task clearly belongs to architecture, design intelligence, Figma and design systems, UX patterns, or usability evaluation.
+Use `search_decision_rules` to find V7 rules by query, task, platform, and product scope. Results
+include matched terms, relevance confidence, and the rule's provenance. Relevance is not evidence
+of product quality. With no match, report the gap instead of inventing a rule.
+
+Use `evaluate_decision` with rule-specific signals such as `{"ZTDE-LIB-A11Y-001": 4.5}`. These are
+evaluations of supplied signals, not independent verification. Missing evidence produces failure
+or abstention according to the rule. Never reuse older auditor IDs as V7 measurement IDs.
+For retained product evidence, `zz-design qualify-decisions` validates a versioned observation
+bundle against its product, source digest, rule fingerprints, and artifact checksums. Preserve
+automated, AI-assisted, owner, expert, and representative-user evidence classes. Do not invent
+human observations or convert a successful checksum check into proof of reviewer identity.
+
+V7 remains shadow-only. V5 compiled authority remains authoritative for release, provenance, and
+knowledge-boundary decisions until separately approved cutover evidence exists.
+
+### Step 2: Search The Approved Scope
+
+Use `search_design_knowledge` when the task needs unstructured supporting guidance beyond the decision library. Write a specific query containing the design problem, relevant quality attribute, and product context. Restrict `categories` when the task clearly belongs to architecture, design intelligence, Figma and design systems, UX patterns, or usability evaluation. Search results explain or locate documentation; they do not create rules, prove compliance, or override `evaluate_decision`, product contracts, or V5 authority.
 
 The search result must include ranked repository-relative source paths, section excerpts, confidence, and matched terms. Treat `SKILL.md` results as authoritative and other indexed files as approved supporting guidance.
 
-### Step 2: Inspect Exact Sources
+### Step 3: Inspect Exact Sources
 
 Read the highest-value result through its category-specific MCP tool before applying detailed rules. Load only the files needed to resolve the task. Do not treat a search excerpt as a complete specification when the surrounding section contains constraints, exceptions, or validation requirements.
 
-### Step 3: Handle No-Match Results
+### Step 4: Handle No-Match Results
 
 When retrieval returns `no-match`, refine the query or broaden only the approved categories. If no approved source matches, state the knowledge gap and proceed from current product requirements, repository evidence, public standards, or official platform documentation as appropriate. Never fill the gap from legacy archives, ignored local research, or a third-party design product.
 

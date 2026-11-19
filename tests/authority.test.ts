@@ -19,7 +19,7 @@ test("compiled authority is deterministic and binds public knowledge, retrieval,
   assert.equal(first.report.retrievalFileCount, 25);
   assert.equal(first.report.exactReadFileCount, 24);
   assert.equal(first.report.modelEntityCount, 20);
-  assert.equal(first.report.ruleCount, 251);
+  assert.equal(first.report.ruleCount, 269);
   assert.equal(stableJson(first.authority), stableJson(second.authority));
   assert.equal(stableJson(first.registry), stableJson(second.registry));
   assert.equal(first.authority.policy.supportingFilesCannotOverrideSkill, true);
@@ -32,6 +32,11 @@ test("compiled authority is deterministic and binds public knowledge, retrieval,
   assert.ok(first.registry.rules.every((rule) => rule.owner === "ZtotheZ"));
   assert.ok(first.registry.rules.every((rule) => rule.modelLinks.length > 0));
   assert.ok(first.registry.rules.every((rule) => rule.sourceIds.length > 0));
+  const libraryRule = first.registry.rules.find(rule => rule.id === 'ZTDE-LIB-A11Y-001');
+  assert.equal(libraryRule?.authorityClass, 'project-policy');
+  assert.equal(libraryRule?.evidenceClass, 'owner-authored');
+  assert.ok(!libraryRule?.sourceIds.includes('standard:wcag-2.2'));
+  assert.ok(!first.registry.rules.find(rule => rule.id === 'ZTDE-A11Y-001')?.implementationLocations.includes('model/decision-library.json'));
 });
 
 test("retained compiled authority matches deterministic compiler output", async () => {
@@ -39,7 +44,7 @@ test("retained compiled authority matches deterministic compiler output", async 
 
   assert.equal(report.status, "pass");
   assert.equal(report.findingCount, 0);
-  assert.equal(report.ruleCount, 251);
+  assert.equal(report.ruleCount, 269);
   assert.match(report.payloadSha256, /^[a-f0-9]{64}$/);
 });
 
@@ -97,7 +102,7 @@ test("compile-authority CLI returns machine-readable shadow status", () => {
   assert.equal(result.status, 0, result.stderr);
   const report = JSON.parse(result.stdout) as { status: string; ruleCount: number; retrievalFileCount: number };
   assert.equal(report.status, "pass");
-  assert.equal(report.ruleCount, 251);
+  assert.equal(report.ruleCount, 269);
   assert.equal(report.retrievalFileCount, 25);
 });
 
@@ -119,5 +124,5 @@ test("compile-authority CLI can emit a non-authoritative Markdown reference view
   assert.match(reference, /Generated ZtotheZ Design Engineering Reference View/);
   assert.match(reference, /not an independent authority/);
   assert.match(reference, /SKILL[.]md/);
-  assert.match(reference, /Registered rules: 251/);
+  assert.match(reference, /Registered rules: 269/);
 });

@@ -30,6 +30,13 @@ export type RuntimeFinding = {
   viewport?: string;
   journey?: string;
   selector?: string;
+  measurement?: {
+    version: "1.0";
+    kind: "normal-text-contrast" | "effective-target-size";
+    minimum: number | null;
+    measuredCount: number;
+    skippedCount: number;
+  };
 };
 
 export type RuntimeScreenshot = {
@@ -75,7 +82,8 @@ export type JourneyStep =
   | { action: "expectValue"; selector: string; value: string }
   | { action: "expectAttribute"; selector: string; name: string; value: string }
   | { action: "expectJson"; selector: string; path: string; value: JourneyJsonValue }
-  | { action: "expectDownload"; selector: string; filenameIncludes?: string }
+  | { action: "expectDownload"; selector: string; filenameIncludes?: string; contentIncludes?: string[];
+      jsonAssertions?: { path: string; value: JourneyJsonValue }[] }
   | {
       action: "expectResponse";
       selector: string;
@@ -158,8 +166,8 @@ export type RuntimeReport = {
   summary: RuntimeSummary;
   passed: boolean;
   evidenceBoundary: RuntimeEvidenceBoundary;
+  decisionSignals?: Record<string, string | number | boolean>;
 };
-
 export type RuntimeVerificationOptions = {
   url: string;
   outputDirectory: string;

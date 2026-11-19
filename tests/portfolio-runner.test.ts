@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { copyFile, mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
@@ -13,6 +14,20 @@ import {
   runPortfolioBenchmark,
   verifyPortfolioRunSources,
 } from "../src/portfolio/runner.js";
+
+async function availableLoopbackPort(): Promise<number> {
+  const server = createServer();
+  await new Promise<void>((resolveListen, rejectListen) => {
+    server.once("error", rejectListen);
+    server.listen(0, "127.0.0.1", () => resolveListen());
+  });
+  const address = server.address();
+  assert.ok(address && typeof address !== "string");
+  await new Promise<void>((resolveClose, rejectClose) => {
+    server.close((error) => error ? rejectClose(error) : resolveClose());
+  });
+  return address.port;
+}
 
 async function fixture() {
   const temporary = await mkdtemp(join(tmpdir(), "ztde-runner-"));
@@ -126,7 +141,7 @@ test("portfolio runner owns the static fixture lifecycle and retains checksummed
     await copyFile(join("knowledge-base", "benchmarks", "aegisops", file), join(contract, file));
   }
   await copyFile("SKILL.md", join(project, "SKILL.md"));
-  const port = 44_000 + Math.floor(Math.random() * 1_000);
+  const port = await availableLoopbackPort();
   const registryPath = join(temporary, "registry.yaml");
   await writeFile(registryPath, stringify({
     version: "1.0", id: "browser-runner", description: "Browser runner fixture.",

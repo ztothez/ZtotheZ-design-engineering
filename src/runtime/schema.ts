@@ -65,6 +65,11 @@ export const journeyStepSchema = z.discriminatedUnion("action", [
     action: z.literal("expectDownload"),
     selector: z.string().min(1).max(1_024),
     filenameIncludes: z.string().min(1).max(256).optional(),
+    contentIncludes: z.array(z.string().min(1).max(4096)).min(1).max(20).optional(),
+    jsonAssertions: z.array(z.object({
+      path: z.string().regex(/^[a-zA-Z0-9_-]+(?:\.[a-zA-Z0-9_-]+)*$/),
+      value: z.union([z.string().max(4096), z.number().finite(), z.boolean(), z.null()]),
+    })).min(1).max(20).optional(),
   }),
   z.object({
     action: z.literal("expectResponse"),

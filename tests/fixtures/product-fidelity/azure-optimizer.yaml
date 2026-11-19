@@ -1,0 +1,25 @@
+version: "1.0"
+productId: azure-optimizer
+scope: repository-owned-product-fidelity
+route: /
+reference:
+  kind: owner-controlled-public-product
+  url: https://huggingface.co/spaces/ztothez/azure-optimizer
+  observedAt: 2026-09-11
+  evidenceBoundary: The reference establishes owner-controlled cloud-operations structure and identity cues only; its data and production implementation are not qualification evidence.
+requiredCues:
+  - { id: product-navigation, selector: '[data-ztothez-fidelity="product-navigation"]', purpose: Preserve the cloud operations navigation and page orientation. }
+  - { id: product-identity, selector: '[data-ztothez-fidelity="product-identity"]', purpose: Present Azure Optimizer as the first product signal. }
+  - { id: metric-summary, selector: '[data-ztothez-fidelity="metric-summary"]', purpose: Provide a scan-first operational summary before detailed findings. }
+  - { id: recommendations, selector: '[data-ztothez-fidelity="recommendations"]', purpose: Prioritize savings recommendations with visible impact. }
+  - { id: analysis-results, selector: '[data-ztothez-fidelity="analysis-results"]', purpose: Keep evidence and validation attached to the selected optimization task. }
+  - { id: recovery, selector: '[data-ztothez-fidelity="recovery"]', purpose: Preserve the selected work when a source is unavailable. }
+  - { id: data-boundary, selector: '[data-ztothez-fidelity="data-boundary"]', purpose: Distinguish demonstration data from connected Azure evidence. }
+documentOrder: [product-navigation, product-identity, metric-summary, recommendations, analysis-results, recovery, data-boundary]
+requiredViewports:
+  - { id: mobile, width: 375, height: 812 }
+  - { id: tablet, width: 768, height: 1024 }
+  - { id: desktop, width: 1440, height: 1000 }
+humanReview:
+  required: true
+  categories: [brand-fit, information-hierarchy, visual-rhythm, domain-fit, responsive-composition]

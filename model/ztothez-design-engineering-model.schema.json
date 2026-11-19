@@ -21,8 +21,8 @@
     "version": { "const": "1.0" },
     "product": { "const": "ZtotheZ Design Engineering" },
     "authority": { "const": "SKILL.md" },
-    "lifecycle": { "const": "shadow" },
-    "cutoverStatus": { "const": "not-authoritative-until-v5-item-8" },
+    "lifecycle": { "const": "active" },
+    "cutoverStatus": { "const": "approved" },
     "policy": {
       "type": "object",
       "additionalProperties": false,

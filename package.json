@@ -1,6 +1,6 @@
 {
   "name": "@ztothez/design-engineering",
-  "version": "2.0.5",
+  "version": "3.1.0",
   "description": "ZtotheZ Design Engineering System: MCP-backed product design architecture, knowledge, verification, and quality gates.",
   "main": "dist/src/server.js",
   "types": "dist/src/server.d.ts",
@@ -50,6 +50,8 @@
     "zz-design": "dist/cli/index.js"
   },
   "scripts": {
+    "decision-library:validate": "npm run build --silent && node dist/cli/query-library.js --validate",
+    "query-library": "npm run build --silent && node dist/cli/query-library.js",
     "audit": "tsx cli/audit.ts",
     "assess-maintainer": "npm run build --silent && node dist/cli/assess-maintainer-review.js",
     "capture-comparison-engineering": "npm run build --silent && node scripts/capture-comparison-engineering.mjs",
@@ -81,6 +83,9 @@
     "knowledge-quality:check": "npm run build --silent && node dist/cli/evaluate-knowledge-quality.js --json",
     "source-removal:qualify": "npm run build --silent && node dist/cli/qualify-source-removal.js --json",
     "v5:migration": "npm run build --silent && node scripts/capture-v5-migration.mjs",
+    "v7:baseline": "node scripts/capture-v7-baseline.mjs",
+    "v7:shadow": "npm run build --silent && node scripts/capture-v7-shadow.mjs",
+    "v7:fidelity": "npm run build --silent && node scripts/capture-product-fidelity.mjs",
     "v7:corpus-audit": "node scripts/audit-v7-corpus.mjs",
     "model:validate": "npm run build --silent && node dist/cli/validate-model.js",
     "authority:compile": "npm run build --silent && node dist/cli/compile-authority.js --check",
@@ -99,6 +104,7 @@
     "validate-information": "npm run build --silent && node dist/cli/validate-information.js",
     "validate-trust": "npm run build --silent && node dist/cli/validate-trust.js",
     "verify-ui": "npm run build --silent && node dist/cli/verify-ui.js",
+    "verify-product-fidelity": "npm run build --silent && node dist/cli/verify-product-fidelity.js",
     "v3:evidence": "node scripts/capture-v3-evidence.mjs",
     "v4:qualification": "node scripts/capture-v4-qualification.mjs"
   },

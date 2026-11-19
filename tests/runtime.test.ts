@@ -26,6 +26,16 @@ test("runtime verifier captures evidence, journeys, and rendered failures", asyn
     "utf8",
   );
   const server = createServer((request, response) => {
+    if (request.url === "/empty-download") {
+      response.writeHead(200, { "content-type": "text/html; charset=utf-8" });
+      response.end(goodHtml.replace('/download/report.json', '/download/empty.json'));
+      return;
+    }
+    if (request.url === "/download/empty.json") {
+      response.writeHead(200, { "content-type": "application/json", "content-disposition": 'attachment; filename="report.json"' });
+      response.end();
+      return;
+    }
     if (request.url === "/good") {
       response.writeHead(200, { "content-type": "text/html; charset=utf-8" });
       response.end(goodHtml);
@@ -136,7 +146,7 @@ test("runtime verifier captures evidence, journeys, and rendered failures", asyn
           { action: "expectAttribute", selector: "#status", name: "data-mode", value: "demo" },
           { action: "expectResponse", selector: "#status", urlIncludes: "/api/status", status: 200, method: "GET" },
           { action: "expectJson", selector: "#json", path: "scores.coverage", value: 100 },
-          { action: "expectDownload", selector: "#download", filenameIncludes: "report.json" },
+          { action: "expectDownload", selector: "#download", filenameIncludes: "report.json", contentIncludes: ['"ok":true'], jsonAssertions: [{ path: 'ok', value: true }] },
           { action: "click", selector: "#open" },
           { action: "expectVisible", selector: "#result" },
           { action: "expectText", selector: "#result", value: "successfully" },
@@ -158,6 +168,20 @@ test("runtime verifier captures evidence, journeys, and rendered failures", asyn
   );
   await stat(join(good.outputDirectory, "runtime-report.json"));
   await stat(good.screenshots[0]!.path);
+
+  const emptyDownload = await verifyUiRuntime({ url: `${origin}/empty-download`,
+    outputDirectory: join(outputRoot, 'empty-download'), viewports: viewport, settleMs: 20,
+    journeys: [{ name: 'empty-export', steps: [{ action: 'expectDownload', selector: '#download', filenameIncludes: 'report.json' }] }],
+  });
+  assert.equal(emptyDownload.journeys[0]?.passed, false);
+  assert.ok(emptyDownload.findings.some(finding => finding.evidence.some(value => value.includes('is empty'))));
+  const wrongPayload = await verifyUiRuntime({ url: `${origin}/good`, outputDirectory: join(outputRoot, 'wrong-payload'),
+    viewports: viewport, settleMs: 20, journeys: [
+      { name: 'wrong-text', steps: [{ action: 'expectDownload', selector: '#download', contentIncludes: ['current project state'] }] },
+      { name: 'wrong-json', steps: [{ action: 'expectDownload', selector: '#download', jsonAssertions: [{ path: 'ok', value: false }] }] },
+    ],
+  });
+  assert.ok(wrongPayload.journeys.every(journey => !journey.passed));
 
   const blobDownload = await verifyUiRuntime({
     url: `${origin}/blob-download`,
@@ -533,4 +557,79 @@ test("runtime verifier captures evidence, journeys, and rendered failures", asyn
   assert.equal(baselineMismatch.passed, false);
   assert.equal(baselineMismatch.screenshotRegression.status, "mismatched");
   assert.ok(baselineMismatch.findings.some((finding) => finding.checkId === "ZTDE-RUNTIME-019"));
+});
+
+test("runtime verifier retains scan evidence without promoting page claims or inventing measurements", async () => {
+  const server = createServer((request, response) => {
+    if (request.url === "/measured") {
+      response.writeHead(200, { "content-type": "text/html; charset=utf-8" });
+      response.end(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <title>Measured</title>
+          <meta data-ztothez-design-signal="ZTDE-LIB-TOKEN-001:no-raw-values-in-component-styles" />
+        </head>
+        <body>
+          <h1 style="color: #000; background: #fff;">Hello World</h1>
+          <p style="color: #000; background: #fff;">Normal text sample</p>
+          <p style="background: linear-gradient(white, grey);">Unmodeled background</p>
+          <button style="width: 44px; height: 44px;">Click Me</button>
+        </body>
+        </html>
+      `);
+    } else if (request.url === "/unmeasured") {
+      response.writeHead(200, { "content-type": "text/html; charset=utf-8" });
+      response.end(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head><title>Unmeasured</title></head>
+        <body>
+        </body>
+        </html>
+      `);
+    }
+  });
+
+  await new Promise<void>((resolve) => server.listen(0, resolve));
+  const address = server.address() as { port: number };
+  const origin = `http://127.0.0.1:${address.port}`;
+  const outputRoot = await mkdtemp(join(tmpdir(), "ztde-measured-signals-"));
+
+  try {
+    const measured = await verifyUiRuntime({
+      url: `${origin}/measured`,
+      outputDirectory: join(outputRoot, "measured"),
+      viewports: [{ name: "mobile", width: 320, height: 568 }],
+    });
+
+    assert.deepEqual(measured.decisionSignals, {});
+    assert.ok(measured.findings.some(f => f.checkId === "ZTDE-RUNTIME-011-MEASURED"));
+    const contrast = measured.findings.find(f => f.measurement?.kind === "normal-text-contrast")!.measurement!;
+    assert.equal(contrast.measuredCount, 2);
+    assert.equal(contrast.skippedCount, 1);
+    assert.ok(contrast.minimum! >= 4.5);
+    const targets = measured.findings.find(f => f.measurement?.kind === "effective-target-size")!.measurement!;
+    assert.equal(targets.minimum, 44);
+    assert.equal(targets.measuredCount, 1);
+    assert.ok(measured.findings.some(f => f.checkId === "ZTDE-RUNTIME-EXPLICIT" && f.message.includes("Unverified")));
+
+    const unmeasured = await verifyUiRuntime({
+      url: `${origin}/unmeasured`,
+      outputDirectory: join(outputRoot, "unmeasured"),
+      viewports: [{ name: "mobile", width: 320, height: 568 }],
+    });
+
+    assert.equal(unmeasured.decisionSignals?.["ZTDE-LIB-A11Y-001"], undefined);
+    assert.equal(unmeasured.decisionSignals?.["ZTDE-LIB-A11Y-002"], undefined);
+    assert.equal(unmeasured.decisionSignals?.["ZTDE-LIB-A11Y-003"], undefined);
+    assert.equal(unmeasured.decisionSignals?.["ZTDE-LIB-TOKEN-001"], undefined);
+    for (const finding of unmeasured.findings.filter(f => f.measurement)) {
+      assert.equal(finding.measurement!.minimum, null);
+      assert.equal(finding.measurement!.measuredCount, 0);
+    }
+  } finally {
+    server.close();
+    await rm(outputRoot, { recursive: true, force: true });
+  }
 });

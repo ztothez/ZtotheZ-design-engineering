@@ -1,0 +1,26 @@
+version: "1.0"
+productId: scenestart
+scope: repository-owned-product-fidelity
+route: /studio
+reference:
+  kind: owner-controlled-public-product
+  url: https://scenestart.ztothez.com/learn
+  observedAt: 2026-09-11
+  evidenceBoundary: The reference establishes owner-controlled SceneStart identity and learning-to-studio continuity cues only; visual similarity is not a claim of product parity.
+requiredCues:
+  - { id: product-navigation, selector: '[data-ztothez-fidelity="product-navigation"]', purpose: "Preserve navigation between learning, workshop, and studio contexts." }
+  - { id: product-identity, selector: '[data-ztothez-fidelity="product-identity"]', purpose: Present SceneStart as the first product signal. }
+  - { id: studio-context, selector: '[data-ztothez-fidelity="studio-context"]', purpose: Identify the creative workspace and current production task. }
+  - { id: project-metadata, selector: '[data-ztothez-fidelity="project-metadata"]', purpose: Group production identity fields without collision. }
+  - { id: production-preview, selector: '[data-ztothez-fidelity="production-preview"]', purpose: Keep the actual production state visually central. }
+  - { id: production-actions, selector: '[data-ztothez-fidelity="production-actions"]', purpose: Keep playback persistence and export commands adjacent to the preview. }
+  - { id: recovery, selector: '[data-ztothez-fidelity="recovery"]', purpose: Preserve project context through malformed input and unavailable storage. }
+  - { id: data-boundary, selector: '[data-ztothez-fidelity="data-boundary"]', purpose: Identify the local synthetic fixture boundary. }
+documentOrder: [product-navigation, product-identity, studio-context, project-metadata, production-preview, production-actions, recovery, data-boundary]
+requiredViewports:
+  - { id: mobile, width: 375, height: 812 }
+  - { id: tablet, width: 768, height: 1024 }
+  - { id: desktop, width: 1440, height: 1000 }
+humanReview:
+  required: true
+  categories: [brand-fit, information-hierarchy, visual-rhythm, domain-fit, responsive-composition]

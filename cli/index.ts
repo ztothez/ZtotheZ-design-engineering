@@ -98,6 +98,21 @@ async function main(): Promise<void> {
     process.exitCode = await runQualifySourceRemovalCli(argumentsList.slice(1));
     return;
   }
+  if (argumentsList[0] === "query-library") {
+    const { runQueryLibraryCli } = await import("./query-library.js");
+    process.exitCode = await runQueryLibraryCli(argumentsList.slice(1));
+    return;
+  }
+  if (argumentsList[0] === "qualify-decisions") {
+    const { runQualifyDecisionsCli } = await import("./qualify-decisions.js");
+    process.exitCode = await runQualifyDecisionsCli(argumentsList.slice(1));
+    return;
+  }
+  if (argumentsList[0] === "verify-product-fidelity") {
+    const { runVerifyProductFidelityCli } = await import("./verify-product-fidelity.js");
+    process.exitCode = await runVerifyProductFidelityCli(argumentsList.slice(1));
+    return;
+  }
   if (process.argv.includes("--help") || process.argv.includes("-h")) {
     writeHelp();
     return;

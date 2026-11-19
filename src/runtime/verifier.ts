@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import { basename, dirname, join, resolve } from "node:path";
 
 import { chromium, type Page } from "playwright-core";
@@ -18,6 +18,7 @@ import {
 import {
   addInterfaceCoverageFindings,
   checkChartContracts,
+  checkExplicitSignals,
   checkInterfaceTrust,
   createInterfaceCoverage,
   type InterfaceCoverage,
@@ -795,6 +796,8 @@ async function checkKeyboard(
   });
   if (overview.focusableCount === 0) return;
 
+  findings.push({ checkId: "ZTDE-RUNTIME-006-MEASURED", severity: "info", message: "Keyboard behavior was directly measured.", evidence: [`Evaluated ${overview.focusableCount} focusable controls.`], viewport: viewport.name });
+
   for (const selector of overview.positiveTabindex) {
     addFinding(
       findings,
@@ -1083,6 +1086,7 @@ async function checkRenderedPage(
   await checkMedia(page, viewport, findings);
   await checkInterfaceTrust(page, viewport, findings, interfaceCoverage);
   await checkChartContracts(page, viewport, findings);
+  await checkExplicitSignals(page, viewport, findings);
   await checkVisualComposition(page, viewport, findings);
   await checkRenderedVisualContrast(page, viewport, findings);
   await checkRenderedAssets(page, viewport, findings);
@@ -1344,10 +1348,27 @@ async function runJourney(
               );
             }
           }
+          const artifactSize = (await stat(downloadPath)).size;
+          if (artifactSize === 0) throw new Error(`Downloaded artifact ${suggestedFilename} is empty`);
+          if (step.contentIncludes || step.jsonAssertions) {
+            if (artifactSize > 16 * 1024 * 1024) throw new Error('Download exceeds the content assertion size limit');
+            const text = await readFile(downloadPath, 'utf8');
+            for (const expected of step.contentIncludes ?? []) {
+              if (!text.includes(expected)) throw new Error(`Downloaded artifact ${suggestedFilename} is missing required content ${JSON.stringify(expected)}`);
+            }
+            if (step.jsonAssertions) {
+              const document: unknown = JSON.parse(text);
+              for (const assertion of step.jsonAssertions) {
+                if (JSON.stringify(jsonValueAtPath(document, assertion.path)) !== JSON.stringify(assertion.value)) {
+                  throw new Error(`Downloaded artifact ${suggestedFilename} does not satisfy JSON path ${assertion.path}`);
+                }
+              }
+            }
+          }
           result.evidence?.push({
             kind: "download",
             step: index + 1,
-            description: `Downloaded ${suggestedFilename} via ${evidenceMethod}`,
+            description: `Downloaded ${suggestedFilename} via ${evidenceMethod} (${artifactSize} bytes; ${(step.contentIncludes?.length ?? 0) + (step.jsonAssertions?.length ?? 0)} declared content assertions checked; full semantics not certified)`,
             path: downloadPath,
           });
           observations.set(index + 1, `Downloaded ${suggestedFilename} via ${evidenceMethod}`);
@@ -1600,10 +1621,16 @@ export async function verifyUiRuntime(options: RuntimeVerificationOptions): Prom
   );
 
   const uniqueFindings = deduplicateFindings(findings);
+
+  const decisionSignals: Record<string, string | number | boolean> = {};
+  // Scan coverage and page-authored declarations are not rule measurements.
+  // Retain them for inspection without inventing numeric minima or full coverage.
+  const finalFindings = uniqueFindings;
+
   const summary = {
-    errors: uniqueFindings.filter((finding) => finding.severity === "error").length,
-    warnings: uniqueFindings.filter((finding) => finding.severity === "warning").length,
-    info: uniqueFindings.filter((finding) => finding.severity === "info").length,
+    errors: finalFindings.filter((finding) => finding.severity === "error").length,
+    warnings: finalFindings.filter((finding) => finding.severity === "warning").length,
+    info: finalFindings.filter((finding) => finding.severity === "info").length,
   };
   const report: RuntimeReport = {
     version: RUNTIME_REPORT_VERSION,
@@ -1617,7 +1644,8 @@ export async function verifyUiRuntime(options: RuntimeVerificationOptions): Prom
     screenshotRegression,
     journeys: journeyResults,
     expectedNetwork,
-    findings: uniqueFindings,
+    findings: finalFindings,
+    decisionSignals,
     summary,
     passed: summary.errors === 0,
     evidenceBoundary: {

@@ -19,6 +19,12 @@ h3 { margin-bottom: var(--space-2); font-size: var(--font-size-item-title); }
 .route-label, .status { max-width: 100%; border: var(--border-width) solid var(--color-border); border-radius: var(--radius-control); padding: var(--space-2) var(--space-3); font-size: var(--font-size-label); font-weight: 800; white-space: normal; overflow-wrap: anywhere; }
 .source-panel, .primary-flow, .recovery { border: var(--border-width) solid var(--color-border); border-radius: var(--radius-panel); background: var(--color-surface); padding: var(--space-5); }
 .source-panel { margin-bottom: var(--space-4); }
+.decision-layout + .source-panel { margin-top: var(--space-5); }
+.source-panel > * + * { margin-top: var(--space-4); }
+.source-panel .section-heading > div { flex: 1 1 16rem; }
+.source-panel .status { flex: 0 0 auto; }
+.source-facts > div { min-width: 0; }
+.source-facts dt, .source-facts dd { overflow-wrap: anywhere; }
 .mode-control { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-block: var(--space-4); }
 .mode-control button[aria-pressed="true"] { background: var(--color-action); border-color: var(--color-action); color: var(--color-action-text); }
 .source-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-3); margin: 0; }
@@ -27,6 +33,7 @@ h3 { margin-bottom: var(--space-2); font-size: var(--font-size-item-title); }
 .source-facts dd { margin: var(--space-1) 0 0; }
 .limitation, .evidence-boundary { margin: var(--space-4) 0 0; color: var(--color-text-muted); }
 .decision-layout { display: grid; grid-template-columns: minmax(0, 2fr) minmax(var(--measure-aside), 1fr); gap: var(--space-4); }
+.decision-layout > * { min-width: 0; }
 .finding { margin-block: var(--space-4); border-left: var(--focus-width) solid var(--color-action); background: var(--color-surface-raised); padding: var(--space-4); }
 .answer-flow { display: grid; gap: var(--space-2); padding: 0; list-style: none; }
 .answer-flow li { display: grid; grid-template-columns: var(--size-step) 1fr; gap: var(--space-3); border-top: var(--border-width) solid var(--color-border); padding-top: var(--space-3); }
@@ -41,6 +48,12 @@ h3 { margin-bottom: var(--space-2); font-size: var(--font-size-item-title); }
 .status--success, .status--demo { color: var(--color-positive); }
 .status--error, .status--live { color: var(--color-negative); }
 .status--running, .status--cached, .status--imported { color: var(--color-warning); }
+.analysis-panel { margin-top: var(--space-5); border-top: var(--border-width) solid var(--color-border); padding-top: var(--space-4); }
+.analysis-findings { padding-left: var(--space-5); }
+.analysis-findings li { padding-block: var(--space-3); border-bottom: var(--border-width) solid var(--color-border); }
+.analysis-findings h4 { overflow-wrap: anywhere; margin-block: 0 var(--space-3); }
+.analysis-findings summary { min-height: 44px; padding-block: var(--space-3); cursor: pointer; overflow-wrap: anywhere; }
+.analysis-findings summary:focus-visible { outline: var(--focus-width) solid var(--color-focus); outline-offset: var(--space-1); }
 
 @media (max-width: 48rem) {
   .decision-layout, .source-facts { grid-template-columns: 1fr; }
@@ -50,4 +63,51 @@ h3 { margin-bottom: var(--space-2); font-size: var(--font-size-item-title); }
 
 @media (prefers-reduced-motion: no-preference) {
   button { transition: background-color var(--duration-fast), border-color var(--duration-fast); }
+}
+
+.azure-shell {
+  --color-canvas: #030817;
+  --color-surface: #111a2d;
+  --color-surface-raised: #17233a;
+  --color-text: #f5f7fb;
+  --color-text-muted: #a7bad8;
+  --color-border: #293955;
+  --color-action: #2563eb;
+  --color-action-hover: #3b82f6;
+  --color-action-text: #ffffff;
+  --color-focus: #facc15;
+  --color-positive: #22c55e;
+  --color-negative: #fb7185;
+  --color-warning: #fbbf24;
+  display: grid;
+  grid-template-columns: 16rem minmax(0, 1fr);
+  min-height: 100vh;
+  background: var(--color-canvas);
+  color: var(--color-text);
+}
+.product-nav { min-width: 0; border-right: 1px solid #24314a; background: #0b1222; padding: 1.5rem 1rem; }
+.nav-brand { display: flex; align-items: center; gap: .75rem; margin-bottom: 2rem; }
+.nav-brand span { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border: 1px solid #3b82f6; border-radius: .375rem; color: #60a5fa; font-size: .75rem; font-weight: 900; }
+.nav-brand strong { font-size: 1.05rem; }
+.product-nav nav { display: grid; gap: .4rem; }
+.product-nav nav a { min-height: 44px; min-width: 0; max-width: 100%; display: flex; align-items: center; border-radius: .35rem; color: #9fb4d4; padding: .7rem .85rem; text-decoration: none; overflow-wrap: anywhere; }
+.product-nav nav a[aria-current="page"] { background: #12316b; color: #70b7ff; }
+.product-nav nav a:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; }
+.azure-stage { min-width: 0; padding-inline: 1.5rem; }
+.azure-shell .workspace { width: min(100%, 78rem); }
+.azure-shell .product-header { border-bottom: 1px solid #1f2f4a; padding-bottom: 1.25rem; }
+.azure-shell .metric-summary div { border: 1px solid #293955; border-radius: .375rem; }
+.azure-shell .metric-summary dd { margin-top: .4rem; font-size: 1.4rem; font-weight: 850; color: #5ee78c; }
+.azure-shell .finding { border-left-color: #3b82f6; }
+.azure-shell .analysis-panel { background: #0c1426; padding: 1rem; }
+.decision-layout + [data-ztothez-fidelity="data-boundary"] { margin-top: var(--space-5); }
+
+@media (max-width: 56rem) {
+  .azure-shell { grid-template-columns: 1fr; }
+  .product-nav { border-right: 0; border-bottom: 1px solid #24314a; }
+  .product-nav nav { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 36rem) {
+  .azure-stage { padding-inline: .75rem; }
+  .product-nav nav { grid-template-columns: 1fr; }
 }

@@ -1,0 +1,1019 @@
+[
+  {
+    "id": "ZTDE-LIB-A11Y-001",
+    "version": "1.0.0",
+    "title": "Sufficient Color Contrast",
+    "taskApplicability": [
+      "*"
+    ],
+    "productApplicability": [
+      "*"
+    ],
+    "platformApplicability": [
+      "*"
+    ],
+    "statement": "For sampled normal-sized text with a measurable background, require a minimum foreground/background contrast ratio of 4.5 to 1. Large text, non-text controls, and unsampled backgrounds require separate evidence; this result is not a complete accessibility certification.",
+    "threshold": {
+      "type": "quantitative",
+      "value": "4.5",
+      "unit": "contrast-ratio"
+    },
+    "failureCondition": "The minimum observed contrast ratio for applicable normal-sized text is below 4.5 to 1, or the required normal-text sample is unavailable.",
+    "counterexample": "Light grey text (#999) on a white background (#FFF) yields a contrast ratio of approximately 2.85:1, failing the minimum requirement.",
+    "confidence": "high",
+    "evidenceClass": "measured",
+    "verificationMethod": "automated",
+    "conflictPriority": 90,
+    "exceptionPolicy": "Decorative text that conveys no information and disabled controls are exempt per WCAG 1.4.3.",
+    "abstentionBehavior": "fail-closed",
+    "level": "mandatory",
+    "category": "accessibility",
+    "provenance": {
+      "version": "1.0",
+      "method": "policy-reconciliation",
+      "reviewerClass": "ai-assisted",
+      "authority": "project-policy",
+      "rationale": "Reconcile contrast advice with the normal-text measurement floor; broader accessibility needs separate evidence.",
+      "sources": [
+        {
+          "path": "SKILL.md",
+          "sha256": "111b247e3ef9fc841fac49e0e46232a5576c7d2542ec074ceef0c98e2a1d03ce"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/component-boundaries.md",
+          "sha256": "fbfad0924d87599e4d0950f237675ed5fcc88fe0ac2e458e9e5f6fcd028d0039"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md",
+          "sha256": "35647b5b6c87bbfa909cee09dd54237edccc40210d91eeb61bcf3dc9d84c7d29"
+        },
+        {
+          "path": "knowledge-base/maintained/product-patterns/operational-dashboards.md",
+          "sha256": "6e7a058fd1ffc6a8b2909f72fc8fafa2126d73a322b94dc9568176a48af8a8d7"
+        }
+      ],
+      "ruleSha256": "c0087197a3729f5c10e588381606eb43d7192675ffe6ed9469db6d9825bfe501"
+    }
+  },
+  {
+    "id": "ZTDE-LIB-A11Y-002",
+    "version": "1.0.0",
+    "title": "Minimum Interactive Target Size",
+    "taskApplicability": [
+      "*"
+    ],
+    "productApplicability": [
+      "*"
+    ],
+    "platformApplicability": [
+      "*"
+    ],
+    "statement": "All interactive elements must have a minimum touch and click target area to prevent accidental activation and support motor-impaired users.",
+    "threshold": {
+      "type": "quantitative",
+      "value": "44",
+      "unit": "css-pixels"
+    },
+    "failureCondition": "An interactive element renders with a clickable area smaller than 44x44 CSS pixels on any supported viewport.",
+    "counterexample": "A 24x24 pixel icon button with no padding provides an insufficient target area, causing frequent mis-taps on mobile devices.",
+    "confidence": "high",
+    "evidenceClass": "measured",
+    "verificationMethod": "automated",
+    "conflictPriority": 85,
+    "exceptionPolicy": "Inline text links within a paragraph are exempt when the paragraph itself provides sufficient surrounding spacing.",
+    "abstentionBehavior": "fail-closed",
+    "level": "mandatory",
+    "category": "accessibility",
+    "provenance": {
+      "version": "1.0",
+      "method": "policy-reconciliation",
+      "reviewerClass": "ai-assisted",
+      "authority": "project-policy",
+      "rationale": "Use the skill's 44-pixel touch recommendation as a conservative project target, not a universal statutory minimum.",
+      "sources": [
+        {
+          "path": "SKILL.md",
+          "sha256": "111b247e3ef9fc841fac49e0e46232a5576c7d2542ec074ceef0c98e2a1d03ce"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/component-boundaries.md",
+          "sha256": "fbfad0924d87599e4d0950f237675ed5fcc88fe0ac2e458e9e5f6fcd028d0039"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md",
+          "sha256": "35647b5b6c87bbfa909cee09dd54237edccc40210d91eeb61bcf3dc9d84c7d29"
+        },
+        {
+          "path": "knowledge-base/maintained/product-patterns/operational-dashboards.md",
+          "sha256": "6e7a058fd1ffc6a8b2909f72fc8fafa2126d73a322b94dc9568176a48af8a8d7"
+        }
+      ],
+      "ruleSha256": "658f0a50136227a80e507673e159a9dd46aaa00a9a07f74a411e8b1a9efe7b3b"
+    }
+  },
+  {
+    "id": "ZTDE-LIB-A11Y-003",
+    "version": "1.0.0",
+    "title": "Keyboard Navigation Coverage",
+    "taskApplicability": [
+      "*"
+    ],
+    "productApplicability": [
+      "*"
+    ],
+    "platformApplicability": [
+      "web",
+      "desktop"
+    ],
+    "statement": "Every interactive element must be reachable and operable using only keyboard input, with a visible focus indicator, to support users who cannot use a pointer device.",
+    "threshold": {
+      "type": "qualitative",
+      "value": "all-interactive-elements-focusable-and-operable"
+    },
+    "failureCondition": "An interactive element cannot receive focus via Tab key, or an action cannot be triggered via Enter or Space key, or the focus indicator is invisible.",
+    "counterexample": "A div with an onClick handler but no tabIndex, role, or keyDown handler is invisible to keyboard users and fails this rule.",
+    "confidence": "high",
+    "evidenceClass": "observed",
+    "verificationMethod": "manual-inspection",
+    "conflictPriority": 88,
+    "exceptionPolicy": "none",
+    "abstentionBehavior": "abstain-if-no-signal",
+    "level": "mandatory",
+    "category": "accessibility",
+    "provenance": {
+      "version": "1.0",
+      "method": "policy-reconciliation",
+      "reviewerClass": "ai-assisted",
+      "authority": "project-policy",
+      "rationale": "Require task-specific keyboard observation; focusability alone cannot prove that controls operate.",
+      "sources": [
+        {
+          "path": "SKILL.md",
+          "sha256": "111b247e3ef9fc841fac49e0e46232a5576c7d2542ec074ceef0c98e2a1d03ce"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/component-boundaries.md",
+          "sha256": "fbfad0924d87599e4d0950f237675ed5fcc88fe0ac2e458e9e5f6fcd028d0039"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md",
+          "sha256": "35647b5b6c87bbfa909cee09dd54237edccc40210d91eeb61bcf3dc9d84c7d29"
+        },
+        {
+          "path": "knowledge-base/maintained/product-patterns/operational-dashboards.md",
+          "sha256": "6e7a058fd1ffc6a8b2909f72fc8fafa2126d73a322b94dc9568176a48af8a8d7"
+        }
+      ],
+      "ruleSha256": "5e5d9594cd1a7b3b87a79b99b885b2e8a366eb940161220c07031bdb5538d9c1"
+    }
+  },
+  {
+    "id": "ZTDE-LIB-A11Y-004",
+    "version": "1.0.0",
+    "title": "Screen Reader State Announcements",
+    "taskApplicability": [
+      "*"
+    ],
+    "productApplicability": [
+      "*"
+    ],
+    "platformApplicability": [
+      "web"
+    ],
+    "statement": "Dynamic content changes that affect the user's current context must be announced to assistive technology through ARIA live regions or equivalent mechanisms.",
+    "threshold": {
+      "type": "qualitative",
+      "value": "all-dynamic-state-changes-announced"
+    },
+    "failureCondition": "A visible state change occurs (e.g., loading completion, error message, content update) without a corresponding ARIA live region announcement or focus management.",
+    "counterexample": "A form submission that silently replaces the page content without announcing the result leaves a screen reader user unaware that anything happened.",
+    "confidence": "high",
+    "evidenceClass": "observed",
+    "verificationMethod": "manual-inspection",
+    "conflictPriority": 82,
+    "exceptionPolicy": "none",
+    "abstentionBehavior": "abstain-if-no-signal",
+    "level": "mandatory",
+    "category": "accessibility",
+    "provenance": {
+      "version": "1.0",
+      "method": "policy-reconciliation",
+      "reviewerClass": "ai-assisted",
+      "authority": "project-policy",
+      "rationale": "Require observation of state announcements; DOM markers alone cannot establish assistive-technology behavior.",
+      "sources": [
+        {
+          "path": "SKILL.md",
+          "sha256": "111b247e3ef9fc841fac49e0e46232a5576c7d2542ec074ceef0c98e2a1d03ce"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/component-boundaries.md",
+          "sha256": "fbfad0924d87599e4d0950f237675ed5fcc88fe0ac2e458e9e5f6fcd028d0039"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md",
+          "sha256": "35647b5b6c87bbfa909cee09dd54237edccc40210d91eeb61bcf3dc9d84c7d29"
+        },
+        {
+          "path": "knowledge-base/maintained/product-patterns/operational-dashboards.md",
+          "sha256": "6e7a058fd1ffc6a8b2909f72fc8fafa2126d73a322b94dc9568176a48af8a8d7"
+        }
+      ],
+      "ruleSha256": "68982894351d37ebdc7e5a0e4329e47f050207e5d95b87216f3de4d0adbac57d"
+    }
+  },
+  {
+    "id": "ZTDE-LIB-A11Y-005",
+    "version": "1.0.0",
+    "title": "Motion Reduction Respect",
+    "taskApplicability": [
+      "*"
+    ],
+    "productApplicability": [
+      "*"
+    ],
+    "platformApplicability": [
+      "web",
+      "mobile"
+    ],
+    "statement": "Interfaces that use motion or animation must provide a reduced-motion alternative that preserves all information and functionality without relying on movement.",
+    "threshold": {
+      "type": "qualitative",
+      "value": "prefers-reduced-motion-respected"
+    },
+    "failureCondition": "An animation conveys information or triggers a workflow step, and no static alternative exists when prefers-reduced-motion is active.",
+    "counterexample": "A progress indicator that only shows completion through an animated bar and disappears when reduced motion is enabled, leaving users without progress feedback.",
+    "confidence": "medium",
+    "evidenceClass": "observed",
+    "verificationMethod": "manual-inspection",
+    "conflictPriority": 70,
+    "exceptionPolicy": "Essential motion requires a documented justification and an observed equivalent path; duration alone does not establish an exemption.",
+    "abstentionBehavior": "abstain-if-no-signal",
+    "level": "mandatory",
+    "category": "accessibility",
+    "provenance": {
+      "version": "1.0",
+      "method": "policy-reconciliation",
+      "reviewerClass": "ai-assisted",
+      "authority": "project-policy",
+      "rationale": "Retain motion-alternative review as an explicit requirement without declaring completion from an emulation flag.",
+      "sources": [
+        {
+          "path": "SKILL.md",
+          "sha256": "111b247e3ef9fc841fac49e0e46232a5576c7d2542ec074ceef0c98e2a1d03ce"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/component-boundaries.md",
+          "sha256": "fbfad0924d87599e4d0950f237675ed5fcc88fe0ac2e458e9e5f6fcd028d0039"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md",
+          "sha256": "35647b5b6c87bbfa909cee09dd54237edccc40210d91eeb61bcf3dc9d84c7d29"
+        },
+        {
+          "path": "knowledge-base/maintained/product-patterns/operational-dashboards.md",
+          "sha256": "6e7a058fd1ffc6a8b2909f72fc8fafa2126d73a322b94dc9568176a48af8a8d7"
+        }
+      ],
+      "ruleSha256": "aefac8145b333e981ee49885925250b94909a2a6ff3aa74a466e858d453912c9"
+    }
+  },
+  {
+    "id": "ZTDE-LIB-RESP-001",
+    "version": "1.0.0",
+    "title": "Content Reflow Without Loss",
+    "taskApplicability": [
+      "*"
+    ],
+    "productApplicability": [
+      "*"
+    ],
+    "platformApplicability": [
+      "web",
+      "mobile"
+    ],
+    "statement": "When the viewport narrows, content must reflow without losing information or functionality. Preserve access to genuinely two-dimensional content through a documented, usable scrolling region.",
+    "threshold": {
+      "type": "quantitative",
+      "value": "320",
+      "unit": "css-pixels-min-width",
+      "comparison": "at-most",
+      "minimum": 1
+    },
+    "failureCondition": "At 320 CSS pixels viewport width, content overflows horizontally, information is clipped without a scroll affordance, or interactive elements become unreachable.",
+    "counterexample": "A data table that renders with fixed column widths and clips cell content on narrow viewports, hiding data without any indication.",
+    "confidence": "high",
+    "evidenceClass": "measured",
+    "verificationMethod": "automated",
+    "conflictPriority": 80,
+    "exceptionPolicy": "Data tables may use horizontal scrolling if the scroll affordance is clearly visible and all content remains accessible.",
+    "abstentionBehavior": "fail-closed",
+    "level": "mandatory",
+    "category": "responsive",
+    "provenance": {
+      "version": "1.0",
+      "method": "policy-reconciliation",
+      "reviewerClass": "ai-assisted",
+      "authority": "project-policy",
+      "rationale": "Bind narrow-layout evaluation to measured supported width and explicit overflow/reachability evidence.",
+      "sources": [
+        {
+          "path": "SKILL.md",
+          "sha256": "111b247e3ef9fc841fac49e0e46232a5576c7d2542ec074ceef0c98e2a1d03ce"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/component-boundaries.md",
+          "sha256": "fbfad0924d87599e4d0950f237675ed5fcc88fe0ac2e458e9e5f6fcd028d0039"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md",
+          "sha256": "35647b5b6c87bbfa909cee09dd54237edccc40210d91eeb61bcf3dc9d84c7d29"
+        },
+        {
+          "path": "knowledge-base/maintained/product-patterns/operational-dashboards.md",
+          "sha256": "6e7a058fd1ffc6a8b2909f72fc8fafa2126d73a322b94dc9568176a48af8a8d7"
+        }
+      ],
+      "ruleSha256": "9fcbc143ed0bd57798e04ed1e9c68e1031f49cf30d394fa31ddfe1875cee51ee"
+    }
+  },
+  {
+    "id": "ZTDE-LIB-RESP-002",
+    "version": "1.0.0",
+    "title": "Viewport Adaptation Testing",
+    "taskApplicability": [
+      "dashboard",
+      "form",
+      "landing-page",
+      "mobile-app"
+    ],
+    "productApplicability": [
+      "*"
+    ],
+    "platformApplicability": [
+      "web"
+    ],
+    "statement": "Interfaces must be verified at multiple viewport breakpoints to confirm layout integrity, interaction patterns, and content hierarchy are preserved across screen sizes.",
+    "threshold": {
+      "type": "quantitative",
+      "value": "3",
+      "unit": "viewport-breakpoints-tested"
+    },
+    "failureCondition": "The interface was verified at fewer than three distinct viewport widths, or no evidence exists for mobile, tablet, and desktop breakpoints.",
+    "counterexample": "Testing only at a 1920px desktop width and shipping without checking 375px or 768px viewports.",
+    "confidence": "medium",
+    "evidenceClass": "observed",
+    "verificationMethod": "tool-assisted",
+    "conflictPriority": 75,
+    "exceptionPolicy": "Platform-specific native apps that target a single form factor may reduce the breakpoint requirement.",
+    "abstentionBehavior": "abstain-if-no-signal",
+    "level": "recommended",
+    "category": "responsive",
+    "provenance": {
+      "version": "1.0",
+      "method": "policy-reconciliation",
+      "reviewerClass": "ai-assisted",
+      "authority": "project-policy",
+      "rationale": "Retain a minimum multiple-width verification policy; viewport count does not establish all responsive behavior.",
+      "sources": [
+        {
+          "path": "SKILL.md",
+          "sha256": "111b247e3ef9fc841fac49e0e46232a5576c7d2542ec074ceef0c98e2a1d03ce"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/component-boundaries.md",
+          "sha256": "fbfad0924d87599e4d0950f237675ed5fcc88fe0ac2e458e9e5f6fcd028d0039"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md",
+          "sha256": "35647b5b6c87bbfa909cee09dd54237edccc40210d91eeb61bcf3dc9d84c7d29"
+        },
+        {
+          "path": "knowledge-base/maintained/product-patterns/operational-dashboards.md",
+          "sha256": "6e7a058fd1ffc6a8b2909f72fc8fafa2126d73a322b94dc9568176a48af8a8d7"
+        }
+      ],
+      "ruleSha256": "59fc273f8f9ebc9e59f51e24c8390f0f6709570d10f1a48c44fcf0504d86ca6a"
+    }
+  },
+  {
+    "id": "ZTDE-LIB-STATE-001",
+    "version": "1.0.0",
+    "title": "Explicit State Machine Definition",
+    "taskApplicability": [
+      "dashboard",
+      "form",
+      "wizard",
+      "mobile-app"
+    ],
+    "productApplicability": [
+      "*"
+    ],
+    "platformApplicability": [
+      "*"
+    ],
+    "statement": "Interactive workflows must define their state transitions explicitly before implementation to ensure all states, including error and recovery states, are accounted for.",
+    "threshold": {
+      "type": "qualitative",
+      "value": "named-states-documented-before-implementation"
+    },
+    "failureCondition": "States are discovered during implementation rather than designed, resulting in missing error handling, impossible state combinations, or unhandled edge cases.",
+    "counterexample": "A multi-step checkout form where the 'payment failed but items reserved' state was never designed, causing users to lose their cart when payment retries.",
+    "confidence": "medium",
+    "evidenceClass": "heuristic",
+    "verificationMethod": "review",
+    "conflictPriority": 65,
+    "exceptionPolicy": "Purely static content pages without user interaction state are exempt.",
+    "abstentionBehavior": "abstain-if-no-signal",
+    "level": "recommended",
+    "category": "state",
+    "provenance": {
+      "version": "1.0",
+      "method": "policy-reconciliation",
+      "reviewerClass": "ai-assisted",
+      "authority": "project-policy",
+      "rationale": "Translate state-design guidance into a reviewable transition-definition obligation with chronology evidence.",
+      "sources": [
+        {
+          "path": "SKILL.md",
+          "sha256": "111b247e3ef9fc841fac49e0e46232a5576c7d2542ec074ceef0c98e2a1d03ce"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/component-boundaries.md",
+          "sha256": "fbfad0924d87599e4d0950f237675ed5fcc88fe0ac2e458e9e5f6fcd028d0039"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md",
+          "sha256": "35647b5b6c87bbfa909cee09dd54237edccc40210d91eeb61bcf3dc9d84c7d29"
+        },
+        {
+          "path": "knowledge-base/maintained/product-patterns/operational-dashboards.md",
+          "sha256": "6e7a058fd1ffc6a8b2909f72fc8fafa2126d73a322b94dc9568176a48af8a8d7"
+        }
+      ],
+      "ruleSha256": "67d33c93aa912b770a5bd8b7f68cc831af9f60932585e24820b2d6b31abe46df"
+    }
+  },
+  {
+    "id": "ZTDE-LIB-STATE-002",
+    "version": "1.0.0",
+    "title": "Error Recovery Preservation",
+    "taskApplicability": [
+      "form",
+      "wizard",
+      "dashboard",
+      "mobile-app"
+    ],
+    "productApplicability": [
+      "*"
+    ],
+    "platformApplicability": [
+      "*"
+    ],
+    "statement": "When an operation fails, the interface must preserve the user's in-progress work and provide a clear recovery path that does not require re-entering lost data.",
+    "threshold": {
+      "type": "qualitative",
+      "value": "user-data-preserved-after-error"
+    },
+    "failureCondition": "A failed operation (network error, validation error, timeout) causes loss of user input, forces a page reload, or returns to a blank initial state.",
+    "counterexample": "A form submission that fails due to a network timeout and clears all fields, forcing the user to re-enter everything from scratch.",
+    "confidence": "high",
+    "evidenceClass": "observed",
+    "verificationMethod": "manual-inspection",
+    "conflictPriority": 85,
+    "exceptionPolicy": "none",
+    "abstentionBehavior": "fail-closed",
+    "level": "mandatory",
+    "category": "state",
+    "provenance": {
+      "version": "1.0",
+      "method": "policy-reconciliation",
+      "reviewerClass": "ai-assisted",
+      "authority": "project-policy",
+      "rationale": "Require a failure-and-recovery journey that observes preserved user data rather than a state-name declaration.",
+      "sources": [
+        {
+          "path": "SKILL.md",
+          "sha256": "111b247e3ef9fc841fac49e0e46232a5576c7d2542ec074ceef0c98e2a1d03ce"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/component-boundaries.md",
+          "sha256": "fbfad0924d87599e4d0950f237675ed5fcc88fe0ac2e458e9e5f6fcd028d0039"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md",
+          "sha256": "35647b5b6c87bbfa909cee09dd54237edccc40210d91eeb61bcf3dc9d84c7d29"
+        },
+        {
+          "path": "knowledge-base/maintained/product-patterns/operational-dashboards.md",
+          "sha256": "6e7a058fd1ffc6a8b2909f72fc8fafa2126d73a322b94dc9568176a48af8a8d7"
+        }
+      ],
+      "ruleSha256": "70ba4073f80b23ec1d150578cde5240b0608da4b89c05d70df436b67dd013c75"
+    }
+  },
+  {
+    "id": "ZTDE-LIB-TOKEN-001",
+    "version": "1.0.0",
+    "title": "Semantic Token Usage Over Raw Values",
+    "taskApplicability": [
+      "*"
+    ],
+    "productApplicability": [
+      "*"
+    ],
+    "platformApplicability": [
+      "*"
+    ],
+    "statement": "Visual properties must reference semantic design tokens rather than raw color codes, pixel values, or magic numbers, enabling centralized theming and contrast reasoning.",
+    "threshold": {
+      "type": "qualitative",
+      "value": "no-raw-values-in-component-styles"
+    },
+    "failureCondition": "Component styles contain hardcoded color hex codes, raw pixel values for spacing, or literal font sizes instead of referencing semantic tokens.",
+    "counterexample": "Using color: #3B82F6 directly in a component instead of referencing var(--color-primary) or a semantic token, making theme changes impossible without find-and-replace.",
+    "confidence": "high",
+    "evidenceClass": "measured",
+    "verificationMethod": "automated",
+    "conflictPriority": 72,
+    "exceptionPolicy": "One-off values in SVG paths and third-party embed overrides may use raw values with a documented exception.",
+    "abstentionBehavior": "abstain-if-no-signal",
+    "level": "mandatory",
+    "category": "tokens",
+    "provenance": {
+      "version": "1.0",
+      "method": "policy-reconciliation",
+      "reviewerClass": "ai-assisted",
+      "authority": "project-policy",
+      "rationale": "Translate semantic-token guidance into a source-review requirement with documented exceptions.",
+      "sources": [
+        {
+          "path": "SKILL.md",
+          "sha256": "111b247e3ef9fc841fac49e0e46232a5576c7d2542ec074ceef0c98e2a1d03ce"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/component-boundaries.md",
+          "sha256": "fbfad0924d87599e4d0950f237675ed5fcc88fe0ac2e458e9e5f6fcd028d0039"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md",
+          "sha256": "35647b5b6c87bbfa909cee09dd54237edccc40210d91eeb61bcf3dc9d84c7d29"
+        },
+        {
+          "path": "knowledge-base/maintained/product-patterns/operational-dashboards.md",
+          "sha256": "6e7a058fd1ffc6a8b2909f72fc8fafa2126d73a322b94dc9568176a48af8a8d7"
+        }
+      ],
+      "ruleSha256": "2b7c17ccf9f0d9bb5c2bd8567261a931d919db2762b2e02fa2ae17b3c975a70a"
+    }
+  },
+  {
+    "id": "ZTDE-LIB-TOKEN-002",
+    "version": "1.0.0",
+    "title": "Single Emphasis Budget Per Surface",
+    "taskApplicability": [
+      "dashboard",
+      "landing-page",
+      "form"
+    ],
+    "productApplicability": [
+      "*"
+    ],
+    "platformApplicability": [
+      "*"
+    ],
+    "statement": "Each visual surface must establish a clear emphasis hierarchy with a limited budget of highlighted elements, so users can identify the primary action or information at a glance.",
+    "threshold": {
+      "type": "quantitative",
+      "value": "3",
+      "unit": "max-primary-emphasis-elements",
+      "comparison": "at-most",
+      "minimum": 1
+    },
+    "failureCondition": "More than three elements compete for primary visual emphasis on a single surface, or no element is visually distinguishable as the primary focal point.",
+    "counterexample": "A dashboard where every card has a bold colored header, large icon, and animated badge, making all cards equally loud and preventing users from finding the most important metric.",
+    "confidence": "medium",
+    "evidenceClass": "heuristic",
+    "verificationMethod": "review",
+    "conflictPriority": 60,
+    "exceptionPolicy": "Data-dense operational dashboards may increase the budget with documented justification.",
+    "abstentionBehavior": "abstain-if-no-signal",
+    "level": "recommended",
+    "category": "tokens",
+    "provenance": {
+      "version": "1.0",
+      "method": "policy-reconciliation",
+      "reviewerClass": "ai-assisted",
+      "authority": "project-policy",
+      "rationale": "Retain the existing one-to-three emphasis budget as a review heuristic, not an externally mandated threshold.",
+      "sources": [
+        {
+          "path": "SKILL.md",
+          "sha256": "111b247e3ef9fc841fac49e0e46232a5576c7d2542ec074ceef0c98e2a1d03ce"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/component-boundaries.md",
+          "sha256": "fbfad0924d87599e4d0950f237675ed5fcc88fe0ac2e458e9e5f6fcd028d0039"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md",
+          "sha256": "35647b5b6c87bbfa909cee09dd54237edccc40210d91eeb61bcf3dc9d84c7d29"
+        },
+        {
+          "path": "knowledge-base/maintained/product-patterns/operational-dashboards.md",
+          "sha256": "6e7a058fd1ffc6a8b2909f72fc8fafa2126d73a322b94dc9568176a48af8a8d7"
+        }
+      ],
+      "ruleSha256": "380aee352f36ec57f4500023b050faebcf719d98bc38170a079cc90dfbcc56db"
+    }
+  },
+  {
+    "id": "ZTDE-LIB-HIER-001",
+    "version": "1.0.0",
+    "title": "Heading Structure Integrity",
+    "taskApplicability": [
+      "*"
+    ],
+    "productApplicability": [
+      "*"
+    ],
+    "platformApplicability": [
+      "web"
+    ],
+    "statement": "Pages must use a single h1 element and maintain a logical heading hierarchy (h1 > h2 > h3) without skipping levels, to support both visual scanning and assistive technology navigation.",
+    "threshold": {
+      "type": "qualitative",
+      "value": "single-h1-no-skipped-levels"
+    },
+    "failureCondition": "A page has zero or multiple h1 elements, or heading levels are skipped (e.g., h1 followed directly by h3).",
+    "counterexample": "A page with three h1 elements for branding, navigation title, and content title, followed by an h4 for a subsection, breaking both semantic structure and screen reader navigation.",
+    "confidence": "high",
+    "evidenceClass": "measured",
+    "verificationMethod": "automated",
+    "conflictPriority": 78,
+    "exceptionPolicy": "none",
+    "abstentionBehavior": "fail-closed",
+    "level": "mandatory",
+    "category": "hierarchy",
+    "provenance": {
+      "version": "1.0",
+      "method": "policy-reconciliation",
+      "reviewerClass": "ai-assisted",
+      "authority": "project-policy",
+      "rationale": "Retain a single-primary-heading project convention, checked on rendered pages rather than claimed as universal law.",
+      "sources": [
+        {
+          "path": "SKILL.md",
+          "sha256": "111b247e3ef9fc841fac49e0e46232a5576c7d2542ec074ceef0c98e2a1d03ce"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/component-boundaries.md",
+          "sha256": "fbfad0924d87599e4d0950f237675ed5fcc88fe0ac2e458e9e5f6fcd028d0039"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md",
+          "sha256": "35647b5b6c87bbfa909cee09dd54237edccc40210d91eeb61bcf3dc9d84c7d29"
+        },
+        {
+          "path": "knowledge-base/maintained/product-patterns/operational-dashboards.md",
+          "sha256": "6e7a058fd1ffc6a8b2909f72fc8fafa2126d73a322b94dc9568176a48af8a8d7"
+        }
+      ],
+      "ruleSha256": "b8b08b4378928180516c1de5cd0e832cc3bc37c9bde3a950f1ba9226c0e3d24d"
+    }
+  },
+  {
+    "id": "ZTDE-LIB-HIER-002",
+    "version": "1.0.0",
+    "title": "Testable Acceptance Criteria",
+    "taskApplicability": [
+      "*"
+    ],
+    "productApplicability": [
+      "*"
+    ],
+    "platformApplicability": [
+      "*"
+    ],
+    "statement": "Every user-facing requirement must include a measurable or observable acceptance criterion that can determine whether the implementation satisfies the requirement.",
+    "threshold": {
+      "type": "qualitative",
+      "value": "acceptance-criteria-present-and-measurable"
+    },
+    "failureCondition": "A requirement is written as a vague feature description (e.g., 'make it user-friendly') with no measurable outcome that can confirm success or failure.",
+    "counterexample": "A requirement stating 'the dashboard should be fast' without specifying a target load time, interaction latency, or measurement methodology.",
+    "confidence": "medium",
+    "evidenceClass": "heuristic",
+    "verificationMethod": "review",
+    "conflictPriority": 55,
+    "exceptionPolicy": "Exploratory prototypes may defer formal acceptance criteria to the next iteration.",
+    "abstentionBehavior": "abstain-if-no-signal",
+    "level": "recommended",
+    "category": "hierarchy",
+    "provenance": {
+      "version": "1.0",
+      "method": "policy-reconciliation",
+      "reviewerClass": "ai-assisted",
+      "authority": "project-policy",
+      "rationale": "Require acceptance criteria tied to observable outcomes and explicit validation methods.",
+      "sources": [
+        {
+          "path": "SKILL.md",
+          "sha256": "111b247e3ef9fc841fac49e0e46232a5576c7d2542ec074ceef0c98e2a1d03ce"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/component-boundaries.md",
+          "sha256": "fbfad0924d87599e4d0950f237675ed5fcc88fe0ac2e458e9e5f6fcd028d0039"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md",
+          "sha256": "35647b5b6c87bbfa909cee09dd54237edccc40210d91eeb61bcf3dc9d84c7d29"
+        },
+        {
+          "path": "knowledge-base/maintained/product-patterns/operational-dashboards.md",
+          "sha256": "6e7a058fd1ffc6a8b2909f72fc8fafa2126d73a322b94dc9568176a48af8a8d7"
+        }
+      ],
+      "ruleSha256": "97b208bc5e10c7e9b888c94972af007739cdcc298711a309cb869f7a0fe7fafe"
+    }
+  },
+  {
+    "id": "ZTDE-LIB-TRUTH-001",
+    "version": "1.0.0",
+    "title": "Evidence Tier Accompanies Claims",
+    "taskApplicability": [
+      "*"
+    ],
+    "productApplicability": [
+      "*"
+    ],
+    "platformApplicability": [
+      "*"
+    ],
+    "statement": "Every design quality claim must be accompanied by its evidence tier classification so downstream consumers can distinguish measured results from heuristic opinions.",
+    "threshold": {
+      "type": "qualitative",
+      "value": "evidence-class-declared-with-every-claim"
+    },
+    "failureCondition": "A quality claim is presented without disclosing whether it is based on automated measurement, manual observation, heuristic review, or expert opinion.",
+    "counterexample": "An AI-generated accessibility audit presented as equivalent to a human expert review without disclosing the evidence tier or methodology limitations.",
+    "confidence": "high",
+    "evidenceClass": "heuristic",
+    "verificationMethod": "review",
+    "conflictPriority": 92,
+    "exceptionPolicy": "none",
+    "abstentionBehavior": "fail-closed",
+    "level": "mandatory",
+    "category": "truthful-disclosure",
+    "provenance": {
+      "version": "1.0",
+      "method": "policy-reconciliation",
+      "reviewerClass": "ai-assisted",
+      "authority": "project-policy",
+      "rationale": "Carry evidence classes with claims so automated and owner/user observations cannot be conflated.",
+      "sources": [
+        {
+          "path": "SKILL.md",
+          "sha256": "111b247e3ef9fc841fac49e0e46232a5576c7d2542ec074ceef0c98e2a1d03ce"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/component-boundaries.md",
+          "sha256": "fbfad0924d87599e4d0950f237675ed5fcc88fe0ac2e458e9e5f6fcd028d0039"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md",
+          "sha256": "35647b5b6c87bbfa909cee09dd54237edccc40210d91eeb61bcf3dc9d84c7d29"
+        },
+        {
+          "path": "knowledge-base/maintained/product-patterns/operational-dashboards.md",
+          "sha256": "6e7a058fd1ffc6a8b2909f72fc8fafa2126d73a322b94dc9568176a48af8a8d7"
+        }
+      ],
+      "ruleSha256": "2a57ae2781cc0b58fba51f576345fe87d479b2b23cb522e36fd7891dc09a4db9"
+    }
+  },
+  {
+    "id": "ZTDE-LIB-TRUTH-002",
+    "version": "1.0.0",
+    "title": "Severity Derived From Measured Impact",
+    "taskApplicability": [
+      "*"
+    ],
+    "productApplicability": [
+      "*"
+    ],
+    "platformApplicability": [
+      "*"
+    ],
+    "statement": "Finding severity must be based on measured or observed user impact rather than subjective tone, ensuring that the most impactful issues are prioritized for resolution.",
+    "threshold": {
+      "type": "qualitative",
+      "value": "severity-justified-by-impact-evidence"
+    },
+    "failureCondition": "Severity is assigned based on personal preference, writing style, or political priority rather than user impact data or task failure rates.",
+    "counterexample": "A cosmetic alignment issue rated as 'critical' because the reporter used strong language, while a task-blocking error was rated 'low' because it was reported matter-of-factly.",
+    "confidence": "medium",
+    "evidenceClass": "heuristic",
+    "verificationMethod": "review",
+    "conflictPriority": 68,
+    "exceptionPolicy": "Security vulnerabilities may use a separate severity framework independent of UX impact.",
+    "abstentionBehavior": "abstain-if-no-signal",
+    "level": "recommended",
+    "category": "truthful-disclosure",
+    "provenance": {
+      "version": "1.0",
+      "method": "policy-reconciliation",
+      "reviewerClass": "ai-assisted",
+      "authority": "project-policy",
+      "rationale": "Require impact-based severity reasoning, retaining uncertainty where user-impact evidence is unavailable.",
+      "sources": [
+        {
+          "path": "SKILL.md",
+          "sha256": "111b247e3ef9fc841fac49e0e46232a5576c7d2542ec074ceef0c98e2a1d03ce"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/component-boundaries.md",
+          "sha256": "fbfad0924d87599e4d0950f237675ed5fcc88fe0ac2e458e9e5f6fcd028d0039"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md",
+          "sha256": "35647b5b6c87bbfa909cee09dd54237edccc40210d91eeb61bcf3dc9d84c7d29"
+        },
+        {
+          "path": "knowledge-base/maintained/product-patterns/operational-dashboards.md",
+          "sha256": "6e7a058fd1ffc6a8b2909f72fc8fafa2126d73a322b94dc9568176a48af8a8d7"
+        }
+      ],
+      "ruleSha256": "1f0f5138f739ab117fafdde3dd9f3a8545b929068c03c3dd0f63745807ba931e"
+    }
+  },
+  {
+    "id": "ZTDE-LIB-MAINT-001",
+    "version": "1.0.0",
+    "title": "Component Boundary Data Ownership",
+    "taskApplicability": [
+      "dashboard",
+      "form",
+      "mobile-app"
+    ],
+    "productApplicability": [
+      "*"
+    ],
+    "platformApplicability": [
+      "*"
+    ],
+    "statement": "Each component must own its data boundaries, with state lifted only through explicit interfaces, to prevent cross-component coupling and cascading breakage.",
+    "threshold": {
+      "type": "qualitative",
+      "value": "component-data-boundaries-explicit"
+    },
+    "failureCondition": "A component directly reads or mutates another component's internal state, or global state changes in one component cause unexpected behavior in unrelated components.",
+    "counterexample": "A dashboard widget that directly accesses and modifies the state of a navigation component, causing the sidebar to collapse when the widget refreshes data.",
+    "confidence": "medium",
+    "evidenceClass": "heuristic",
+    "verificationMethod": "review",
+    "conflictPriority": 62,
+    "exceptionPolicy": "Shared application-level state managers (Redux, Zustand) are acceptable when access patterns are documented.",
+    "abstentionBehavior": "abstain-if-no-signal",
+    "level": "recommended",
+    "category": "maintainability",
+    "provenance": {
+      "version": "1.0",
+      "method": "policy-reconciliation",
+      "reviewerClass": "ai-assisted",
+      "authority": "project-policy",
+      "rationale": "Translate explicit component ownership guidance into a review of state and dependency boundaries.",
+      "sources": [
+        {
+          "path": "SKILL.md",
+          "sha256": "111b247e3ef9fc841fac49e0e46232a5576c7d2542ec074ceef0c98e2a1d03ce"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/component-boundaries.md",
+          "sha256": "fbfad0924d87599e4d0950f237675ed5fcc88fe0ac2e458e9e5f6fcd028d0039"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md",
+          "sha256": "35647b5b6c87bbfa909cee09dd54237edccc40210d91eeb61bcf3dc9d84c7d29"
+        },
+        {
+          "path": "knowledge-base/maintained/product-patterns/operational-dashboards.md",
+          "sha256": "6e7a058fd1ffc6a8b2909f72fc8fafa2126d73a322b94dc9568176a48af8a8d7"
+        }
+      ],
+      "ruleSha256": "bf228904d927010a4b9e2235a81785709f1ee398f2fdaf8cd7beff80abdcbfd7"
+    }
+  },
+  {
+    "id": "ZTDE-LIB-MAINT-002",
+    "version": "1.0.0",
+    "title": "Stage Gate Before Stage Start",
+    "taskApplicability": [
+      "wizard",
+      "form",
+      "dashboard"
+    ],
+    "productApplicability": [
+      "*"
+    ],
+    "platformApplicability": [
+      "*"
+    ],
+    "statement": "Multi-stage workflows must verify that preceding stage outputs satisfy the next stage's input requirements before allowing progression, preventing downstream failures from incomplete inputs.",
+    "threshold": {
+      "type": "qualitative",
+      "value": "stage-prerequisites-validated-before-entry"
+    },
+    "failureCondition": "A workflow stage accepts inputs from a previous stage without validation, resulting in errors, data corruption, or silent failures that surface only at a later stage.",
+    "counterexample": "A design-to-code handoff that proceeds without verifying that all required design tokens are defined, causing the code generation stage to produce invalid output.",
+    "confidence": "medium",
+    "evidenceClass": "heuristic",
+    "verificationMethod": "review",
+    "conflictPriority": 58,
+    "exceptionPolicy": "Purely informational preview stages may skip gate validation.",
+    "abstentionBehavior": "abstain-if-no-signal",
+    "level": "recommended",
+    "category": "maintainability",
+    "provenance": {
+      "version": "1.0",
+      "method": "policy-reconciliation",
+      "reviewerClass": "ai-assisted",
+      "authority": "project-policy",
+      "rationale": "Require stage entry prerequisites to be validated; successful later output does not prove the earlier gate existed.",
+      "sources": [
+        {
+          "path": "SKILL.md",
+          "sha256": "111b247e3ef9fc841fac49e0e46232a5576c7d2542ec074ceef0c98e2a1d03ce"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/component-boundaries.md",
+          "sha256": "fbfad0924d87599e4d0950f237675ed5fcc88fe0ac2e458e9e5f6fcd028d0039"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md",
+          "sha256": "35647b5b6c87bbfa909cee09dd54237edccc40210d91eeb61bcf3dc9d84c7d29"
+        },
+        {
+          "path": "knowledge-base/maintained/product-patterns/operational-dashboards.md",
+          "sha256": "6e7a058fd1ffc6a8b2909f72fc8fafa2126d73a322b94dc9568176a48af8a8d7"
+        }
+      ],
+      "ruleSha256": "4aeb3084a29e2c6c90e4009c724ab291052d9e473f9418ca62deaadb5e8e970a"
+    }
+  },
+  {
+    "id": "ZTDE-LIB-TRUTH-003",
+    "version": "1.0.0",
+    "title": "Handoff Manifest Completeness",
+    "taskApplicability": [
+      "*"
+    ],
+    "productApplicability": [
+      "*"
+    ],
+    "platformApplicability": [
+      "*"
+    ],
+    "statement": "Design-to-development handoffs must include a structured manifest listing all deliverables, their completion status, known limitations, and unfinished items, so the receiving team can make an informed acceptance decision.",
+    "threshold": {
+      "type": "qualitative",
+      "value": "manifest-lists-all-deliverables-and-gaps"
+    },
+    "failureCondition": "A handoff consists of a folder of files without a manifest, leaving the receiving team unable to determine what is complete, what is missing, and what is intentionally deferred.",
+    "counterexample": "Handing off a Figma file and a ZIP of assets with no indication of which screens are final, which are placeholder, and which edge cases remain undesigned.",
+    "confidence": "medium",
+    "evidenceClass": "heuristic",
+    "verificationMethod": "review",
+    "conflictPriority": 55,
+    "exceptionPolicy": "Internal team iterations with continuous collaboration may use lightweight handoff notes instead of formal manifests.",
+    "abstentionBehavior": "abstain-if-no-signal",
+    "level": "recommended",
+    "category": "truthful-disclosure",
+    "provenance": {
+      "version": "1.0",
+      "method": "policy-reconciliation",
+      "reviewerClass": "ai-assisted",
+      "authority": "project-policy",
+      "rationale": "Require handoff manifests to enumerate deliverables and unresolved gaps before acceptance.",
+      "sources": [
+        {
+          "path": "SKILL.md",
+          "sha256": "111b247e3ef9fc841fac49e0e46232a5576c7d2542ec074ceef0c98e2a1d03ce"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/component-boundaries.md",
+          "sha256": "fbfad0924d87599e4d0950f237675ed5fcc88fe0ac2e458e9e5f6fcd028d0039"
+        },
+        {
+          "path": "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md",
+          "sha256": "35647b5b6c87bbfa909cee09dd54237edccc40210d91eeb61bcf3dc9d84c7d29"
+        },
+        {
+          "path": "knowledge-base/maintained/product-patterns/operational-dashboards.md",
+          "sha256": "6e7a058fd1ffc6a8b2909f72fc8fafa2126d73a322b94dc9568176a48af8a8d7"
+        }
+      ],
+      "ruleSha256": "06d11668e22b6d76ed7183599cbc963bc1834badf48257655559aa7689f0deb3"
+    }
+  }
+]

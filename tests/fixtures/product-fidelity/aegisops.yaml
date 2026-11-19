@@ -1,0 +1,25 @@
+version: "1.0"
+productId: aegisops
+scope: repository-owned-product-fidelity
+route: /
+reference:
+  kind: owner-controlled-public-product
+  url: https://huggingface.co/spaces/ztothez/aegisops-ai
+  observedAt: 2026-09-11
+  evidenceBoundary: The reference establishes owner-controlled product identity and composition cues only; no source, assets, or production behavior are copied or inferred.
+requiredCues:
+  - { id: product-navigation, selector: '[data-ztothez-fidelity="product-navigation"]', purpose: Preserve the recognizable security-operations navigation shell. }
+  - { id: product-identity, selector: '[data-ztothez-fidelity="product-identity"]', purpose: Present AegisOPS as the first visual and semantic product signal. }
+  - { id: system-status, selector: '[data-ztothez-fidelity="system-status"]', purpose: Keep environment and safety status visible before execution. }
+  - { id: mission-input, selector: '[data-ztothez-fidelity="mission-input"]', purpose: Make the selected security operation the primary working surface. }
+  - { id: pipeline-status, selector: '[data-ztothez-fidelity="pipeline-status"]', purpose: Expose workflow and artifact readiness beside the mission. }
+  - { id: readiness-gates, selector: '[data-ztothez-fidelity="readiness-gates"]', purpose: Separate bounded readiness claims from pipeline completion. }
+  - { id: data-boundary, selector: '[data-ztothez-fidelity="data-boundary"]', purpose: Keep synthetic and unavailable source modes explicit. }
+documentOrder: [product-navigation, product-identity, system-status, mission-input, pipeline-status, readiness-gates, data-boundary]
+requiredViewports:
+  - { id: mobile, width: 375, height: 812 }
+  - { id: tablet, width: 768, height: 1024 }
+  - { id: desktop, width: 1440, height: 1000 }
+humanReview:
+  required: true
+  categories: [brand-fit, information-hierarchy, visual-rhythm, domain-fit, responsive-composition]

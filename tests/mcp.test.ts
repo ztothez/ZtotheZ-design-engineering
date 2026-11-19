@@ -46,6 +46,16 @@ test("MCP exposes the repository auditor with structured output", async () => {
       version: VERSION,
     });
     const tools = await client.listTools();
+    assert.ok(tools.tools.some(tool => tool.name === 'search_decision_rules'));
+    const decisions = await client.callTool({ name: 'search_decision_rules', arguments: { query: 'contrast', task: 'dashboard' } });
+    assert.equal(decisions.isError, undefined);
+    const decisionOutput = decisions.structuredContent as { status: string; results: Array<{ rule: { id: string } }> };
+    assert.equal(decisionOutput.status, 'matched');
+    assert.equal(decisionOutput.results[0]?.rule.id, 'ZTDE-LIB-A11Y-001');
+    const evaluated = await client.callTool({ name: 'evaluate_decision', arguments: { target: 'test', signals: { 'ZTDE-LIB-A11Y-001': 2 } } });
+    const evaluation = evaluated.structuredContent as { evidenceScope: string; results: Array<{ ruleId: string; outcome: string }> };
+    assert.equal(evaluation.evidenceScope, 'supplied-signals-not-independent-verification');
+    assert.equal(evaluation.results.find(result => result.ruleId === 'ZTDE-LIB-A11Y-001')?.outcome, 'fail');
     assert.ok(tools.tools.some((tool) => tool.name === "audit_repository_architecture"));
     assert.ok(tools.tools.some((tool) => tool.name === "verify_ui_runtime"));
     const runtimeTool = tools.tools.find((tool) => tool.name === "verify_ui_runtime");
@@ -166,7 +176,7 @@ test("MCP exposes the repository auditor with structured output", async () => {
     assert.equal(compiledAuthoritySummary?.admittedFileCount, 142);
     assert.equal(compiledAuthoritySummary?.retrievalFileCount, 25);
     assert.equal(compiledAuthoritySummary?.exactReadFileCount, 24);
-    assert.equal(compiledAuthoritySummary?.ruleCount, 251);
+    assert.equal(compiledAuthoritySummary?.ruleCount, 269);
 
     const corpus = await client.callTool({
       name: "evaluate_corpus_benchmark",

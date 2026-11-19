@@ -102,6 +102,10 @@ import { validateRuntimeUrl } from "./runtime/policy.js";
 import { verifyUiRuntime } from "./runtime/verifier.js";
 import { evaluateShadowCutover } from "./shadow/evaluator.js";
 import { shadowEvaluationSchema } from "./shadow/schema.js";
+import { DecisionLibrary } from "./decision-library/library.js";
+import { RuleRetriever, decisionQuerySchema, decisionSearchSchema } from "./decision-library/retrieval.js";
+import { DecisionEngine } from "./decision-library/engine.js";
+import { DecisionReportSchema } from "./decision-library/schema.js";
 
 const MAX_FILE_BYTES = 2 * 1024 * 1024;
 const MODULE_DIRECTORY = dirname(fileURLToPath(import.meta.url));
@@ -2071,4 +2075,68 @@ server.registerTool(
       };
     }
   },
+);
+
+server.registerTool("search_decision_rules", {
+  title: "Search structured decision rules",
+  description: "Rank the local shadow decision library by query and task/platform/product scope. Relevance is not qualification evidence.",
+  inputSchema: decisionQuerySchema.shape,
+  outputSchema: decisionSearchSchema.shape,
+  annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
+}, async (query) => {
+  try {
+    const library = new DecisionLibrary();
+    library.loadFromRepository(PROJECT_ROOT);
+    const result = new RuleRetriever(library).search(query);
+    return { content: [{ type: "text" as const, text: JSON.stringify(result) }], structuredContent: result };
+  } catch {
+    console.error('[search_decision_rules] Decision library unavailable');
+    return { isError: true, content: [{ type: 'text' as const, text: 'Decision library unavailable or invalid' }] };
+  }
+});
+
+server.registerTool(
+  "evaluate_decision",
+  {
+    title: "Evaluate decision rules against a target",
+    description: "Evaluate supplied signals against shadow decision rules. This does not independently verify a product or authorize cutover.",
+    inputSchema: {
+      target: z.string().min(1),
+      task: z.string().min(1).max(128).optional(),
+      platform: z.string().min(1).max(128).optional(),
+      product: z.string().min(1).max(128).optional(),
+      signals: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])).optional().describe("Signals to trigger rule evaluations"),
+    },
+    outputSchema: DecisionReportSchema.shape,
+    annotations: {
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: true,
+      openWorldHint: false,
+    }
+  },
+  async ({ target, signals, task, platform, product }) => {
+    try {
+      const library = new DecisionLibrary();
+      library.loadFromRepository(PROJECT_ROOT);
+
+      const engine = new DecisionEngine();
+      const applicable = (values: string[], value?: string) => !value || values.includes('*') || values.includes(value);
+      const rules = library.getAllRules().filter(rule => applicable(rule.taskApplicability, task)
+        && applicable(rule.platformApplicability, platform) && applicable(rule.productApplicability, product));
+      const report = engine.evaluate(target, rules, signals || {});
+
+      return {
+        content: [{ type: "text" as const, text: JSON.stringify(report, null, 2) }],
+        structuredContent: report
+      };
+    } catch (error) {
+      const message = 'Decision library unavailable or invalid';
+      console.error(`[evaluate_decision] ${message}`);
+      return {
+        isError: true,
+        content: [{ type: "text" as const, text: message }],
+      };
+    }
+  }
 );

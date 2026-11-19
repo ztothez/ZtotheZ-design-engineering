@@ -252,7 +252,7 @@
     {
       "id": "ztde-kb-4d97c1e7719ac16a",
       "path": "knowledge-base/benchmarks/aegisops/interaction-journeys.json",
-      "sha256": "80c67c70b35d867aafec51f02dee24851cfd3ad1cc15af6bffa20ed4e259ae7b",
+      "sha256": "fda51c9139b0d00f67fa59725ace31acbb81cae1922accda513214c50cf53770",
       "purpose": "product-benchmark",
       "retrievalStatus": "excluded",
       "packageStatus": "included",
@@ -3708,7 +3708,7 @@
     {
       "id": "ztde-kb-b21062e7ecec1408",
       "path": "knowledge-base/provenance.yaml",
-      "sha256": "397da3c43d02b4c52ba39bb157362d35962559b618707dbbd3ef43f82e5b65de",
+      "sha256": "b20dbf7252d51124f24b5806a70bf816b0cc166bcbc1719973c12f5ae1f250b5",
       "purpose": "knowledge-governance",
       "retrievalStatus": "excluded",
       "packageStatus": "included",

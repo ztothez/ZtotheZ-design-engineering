@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { downloadText } from "../domain/production";
+import { assetUnresolved, createReleaseReadme } from "../domain/release-readme";
 
 export function Release() {
   const [assets, setAssets] = useState<{ name: string; creator: string; licence: string; confirmed: boolean }[]>([]);
@@ -15,7 +17,7 @@ export function Release() {
     setAssets(newAssets);
   };
 
-  const unresolved = assets.filter(a => !a.confirmed).length;
+  const unresolved = assets.filter(assetUnresolved).length;
 
   return (
     <div>
@@ -40,12 +42,7 @@ export function Release() {
       <input id="release-aiDisclosure" value={aiDisclosure} aria-label="AI disclosure" onChange={e => setAiDisclosure(e.target.value)} />
 
       <button onClick={() => {
-        const blob = new Blob(["readme"], { type: "text/plain" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "readme.txt";
-        a.click();
+        downloadText("readme.txt", createReleaseReadme(productionTitle, aiDisclosure, assets), "text/plain");
       }}>DOWNLOAD readme.txt</button>
     </div>
   );

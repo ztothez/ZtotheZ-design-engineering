@@ -164,6 +164,7 @@ function modelLinksFor(ruleId: string, model: DesignEngineeringModel): string[] 
 }
 
 function evidenceClassFor(ruleId: string): RuleRegistryEntry["evidenceClass"] {
+  if (ruleId.startsWith("ZTDE-LIB-")) return "owner-authored";
   if (ruleId.includes("A11Y")) return "official-standard";
   if (ruleId.includes("RUNTIME") || ruleId.includes("SCAN")) return "automated-verification";
   if (ruleId.includes("CMP") || ruleId.includes("MNT")) return "human-expert-review";
@@ -172,6 +173,7 @@ function evidenceClassFor(ruleId: string): RuleRegistryEntry["evidenceClass"] {
 }
 
 function authorityClassFor(ruleId: string): RuleRegistryEntry["authorityClass"] {
+  if (ruleId.startsWith("ZTDE-LIB-")) return "project-policy";
   if (ruleId.includes("A11Y")) return "official-requirement";
   if (ruleId.includes("RUNTIME") || ruleId.includes("CMP") || ruleId.includes("MNT")) return "measured-evidence";
   if (ruleId.startsWith("ZTDE-MODEL-") || ruleId.includes("BRIEF") || ruleId.includes("DI") || ruleId.includes("INFO") || ruleId.includes("TRUST")) return "heuristic";
@@ -182,7 +184,7 @@ function sourceIdsFor(ruleId: string, locations: string[], model: DesignEngineer
   const modelEntity = model.entities.find((entity) => entity.id === ruleId);
   if (modelEntity) return modelEntity.sourceRefs.sort();
   const sourceIds = new Set<string>();
-  if (ruleId.includes("A11Y")) sourceIds.add("standard:wcag-2.2");
+  if (ruleId.includes("A11Y") && !ruleId.startsWith("ZTDE-LIB-")) sourceIds.add("standard:wcag-2.2");
   for (const location of locations) {
     const admitted = admissionByPath.get(location);
     if (admitted) sourceIds.add(`admission:${admitted.id}`);

@@ -99,6 +99,10 @@ test("AegisOPS V1.2 interaction contract binds primary and recovery evidence", a
     join(benchmarkDirectory, "interaction-journeys.json"),
     "interaction-qualification",
   );
+  assert.deepEqual(selection.expectedNetwork, [
+    { id: "health-controlled-failure", method: "GET", urlIncludes: "/health", status: 500, minOccurrences: 1, maxOccurrences: 1 },
+    { id: "pipeline-controlled-failure", method: "POST", urlIncludes: "/run", status: 500, minOccurrences: 1, maxOccurrences: 1 },
+  ]);
   assert.equal(selection.journeys.length, 1);
   assert.deepEqual(
     selection.journeys[0]?.steps.filter((step) => step.action === "checkpoint").map((step) => step.checkpoint),

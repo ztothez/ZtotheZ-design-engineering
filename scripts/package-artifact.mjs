@@ -114,6 +114,7 @@ export async function expectedProvenancePaths() {
     "governance/rule-registry.schema.json",
     "model/compiled-authority.json",
     "model/compiled-authority.schema.json",
+    "model/decision-library.json",
     "model/ztothez-design-engineering-model.json",
     "model/ztothez-design-engineering-model.schema.json",
     ...(await expectedKnowledgePaths()),

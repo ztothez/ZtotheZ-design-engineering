@@ -1,38 +1,80 @@
-# ZtotheZ Design Engineering System
+# ZtotheZ Design Engineering
 
-[![Quality](https://github.com/ztothez/ztothez-design-engineering/actions/workflows/quality.yml/badge.svg)](https://github.com/ztothez/ztothez-design-engineering/actions/workflows/quality.yml)
-[![npm](https://img.shields.io/npm/v/@ztothez/design-engineering)](https://www.npmjs.com/package/@ztothez/design-engineering)
-[![GitHub Release](https://img.shields.io/github/v/release/ztothez/ztothez-design-engineering)](https://github.com/ztothez/ztothez-design-engineering/releases/latest)
-[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Support%20My%20Work-FFDD00?style=flat&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/ztothez)
+[![Quality](https://img.shields.io/badge/quality-v3.1.0-blue)](#) [![npm](https://img.shields.io/npm/v/@ztothez/design-engineering)](#) [![GitHub](https://github.com/ztothez/ztothez-design-engineering)](#)
 
-ZtotheZ Design Engineering is a local-first Agent Skill, MCP server, and deterministic quality gate for building production UI and UX systems. It combines product semantics, software architecture, usability evaluation, browser verification, and evidence-backed acceptance criteria.
+ZtotheZ Design Engineering is a local-first MCP server and deterministic quality gate for building production UI and UX systems. It combines governance, product semantics, software architecture, usability evaluation, browser verification, and evidence-backed acceptance criteria.
 
 This project focuses on design engineering instead of style recommendation. It checks whether an interface supports real tasks, exposes coherent states, uses maintainable component boundaries, remains accessible, and produces verifiable evidence.
 
+**Version 3.1.0 delivers the V7 Structured Decision Library**: 18 typed `ZTDE-LIB-*` decision rules with per-rule SHA-256 provenance, ranked retrieval (`search_decision_rules`), deterministic scoped evaluation (`evaluate_decision`), product-fidelity verification (`verify-product-fidelity`), and full pilot & private-holdout qualification.
+
 ## Current Capabilities
 
-- Production-ready Agent Skill in [`SKILL.md`](SKILL.md).
-- Scoped MCP access to architecture, Figma, design-system, UX-pattern, and usability guidance.
-- Independently authored brand, Figma production, asset-generation, iconography, presentation, licensing, and visual-accessibility modules.
-- Versioned product design briefs that block generation when users, tasks, data behavior, recovery, assumptions, or acceptance evidence are materially undefined.
-- Versioned design-deliverable manifests with deterministic visual direction, semantic token, typography, composition, density, state, motion, chart, rendered-evidence, contrast, provenance, icon, and presentation validation.
-- Versioned interface-trust contracts for data mode, connection, result origin, freshness, fallback disclosure, and provenance-preserving records.
-- Versioned operational information-design contracts for decision metrics, evidence-backed findings, chart purpose, hierarchy, exceptional states, and scalable collections.
-- A bounded nine-stage interface workflow linking product task, truthful state, information hierarchy, interaction states, visual direction, semantic tokens, implementation, automated evidence, and attributable human review.
-- Repository architecture audits for coupling, component size, raw design values, mock production paths, network states, accessible names, and placeholder interactions.
-- Structured heuristic reviews with evidence provenance and severity-based acceptance candidates.
-- Browser verification for responsive layout, clipping, overlap, focus, contrast, target sizing, keyboard behavior, text resizing, reflow, reduced motion, media, console errors, and network failures.
-- Opt-in V2 browser contracts for persistent data-mode disclosure, trust-stage and fixture-state coverage, chart names and alternatives, masked dynamic regions, and checksum-based screenshot regression detection.
-- Product contracts with declarative task journeys and acceptance criteria.
-- Consolidated quality gates and multi-profile release decisions.
-- Executable AegisOPS, SceneStart, and Azure Optimizer benchmark contracts and delivery pilots.
-- Versioned positive and negative corpus benchmarks with provenance, per-dimension scoring, recommendation MRR, and explicit abstention checks.
-- Exact provenance and dependency inventories with active-reference isolation checks.
-- A self-contained offline runtime with approved knowledge, a serialized retrieval index, production dependencies, and SHA-256 integrity evidence.
-- GitHub Actions verification with retained fixture evidence.
-- A local-only portfolio registry and disposable snapshot boundary for non-destructive cross-product benchmarking.
+**Core Governance**
+- Explicit knowledge admission manifest with file-level tracking and SHA-256 digests
+- Public-knowledge boundary definition (scope separation between internal and distributable assets)
+- Public-knowledge inventory with full filing, aliases, and retrieval scope
+- Deterministic rule registry compiled from governance, design-intelligence, and architecture sources
+- Authority compilation with traceable derivation and versioned decision library
+- Shadow evaluation: qualification of V6 behavior against V5 authority without cutover
 
-Ranked BM25 knowledge retrieval and exact filename reads are available now. The versioned retrieval scope contains only explicitly approved distributable files and excludes local raw research and legacy archives.
+**Product Design**
+- Versioned product design briefs that block generation when users, tasks, data behavior, recovery, assumptions, or acceptance evidence are materially undefined
+- Versioned design-deliverable manifests with deterministic visual direction, semantic token, typography, composition, density, state, motion, chart, rendered-evidence, contrast, provenance, icon, and presentation validation
+- Versioned interface-trust contracts for data mode, connection, result origin, freshness, fallback disclosure, and provenance-preserving records
+- Versioned operational information-design contracts for decision metrics, evidence-backed findings, chart purpose, hierarchy, exceptional states, and scalable collections
+
+**Architecture & Audit**
+- Repository architecture audits for coupling, component size, raw design values, mock production paths, network states, accessible names, and placeholder interactions
+- Bounded nine-stage interface workflow linking product task, truthful state, information hierarchy, interaction states, visual direction, semantic tokens, implementation, automated evidence, and attributable human review
+- Structured heuristic reviews with evidence provenance and severity-based acceptance candidates
+- Source-removal qualification: verification that obsolete dependencies and research materials are absent from package and public distribution
+
+**Browser Verification**
+- Browser verification for responsive layout, clipping, overlap, focus, contrast, target sizing, keyboard behavior, text resizing, reflow, reduced motion, media, console errors, and network failures
+- Opt-in browser contracts for persistent data-mode disclosure, trust-stage and fixture-state coverage, chart names and alternatives, masked dynamic regions, and checksum-based screenshot regression detection
+- Product contracts with declarative task journeys and acceptance criteria
+- Interaction and recovery contracts for task completion, state preservation, keyboard navigation, and offline fallback behavior
+
+**Benchmarking & Evaluation**
+- Executable AegisOPS, SceneStart, and Azure Optimizer benchmark contracts and delivery pilots
+- Versioned positive and negative corpus benchmarks with provenance, per-dimension scoring, recommendation MRR, and explicit abstention checks
+- Knowledge-quality evaluation: deterministic scoring of retrieval index coverage, accuracy, and framework alignment
+- Holdout evaluation: independent assessment of qualified capabilities against unseen test cases
+
+**Delivery & Distribution**
+- Consolidated quality gates and multi-profile release decisions
+- Exact provenance and dependency inventories with active-reference isolation checks
+- Self-contained offline runtime with approved knowledge, a serialized retrieval index, production dependencies, and SHA-256 integrity evidence
+- GitHub Actions verification with retained fixture evidence
+- Local-only portfolio registry and disposable snapshot boundary for non-destructive cross-product benchmarking
+- Deterministic packaging with explicit file allowlists and archive-removal verification
+
+**Knowledge Retrieval**
+- Ranked BM25 knowledge retrieval with source paths, excerpts, and confidence scores
+- Exact filename reads from approved knowledge base
+- Versioned retrieval scope containing only explicitly approved distributable files (excludes local research and legacy archives)
+- MCP search tool with category filtering and deterministic result ordering
+
+## What's New in V3.1.0 (V7 Decision Library)
+
+- **Structured Decision Library (`model/decision-library.json`)**: 18 independently authored `ZTDE-LIB-*` rules covering accessibility, responsive reflow, state recovery, semantic tokens, heading hierarchy, truthful disclosure, and maintainability — each with measurable thresholds, counterexamples, verification methods, and SHA-256 provenance fingerprints.
+- **New MCP Tools**: `search_decision_rules` (deterministic ranked rule retrieval with explicit no-match abstention) and `evaluate_decision` (conflict-aware decision evaluation with declared evidence scope).
+- **New CLI Commands**: `zz-design query-library`, `zz-design qualify-decisions`, and `zz-design verify-product-fidelity`.
+- **Product-Fidelity Verification**: Distinct product-shell contracts and automated multi-width checks (`375px`, `768px`, `1440px`) for AegisOPS, SceneStart, and Azure Optimizer, backed by owner visual review.
+- **Full V7 Qualification**: 13/13 pilot profiles, 18/18 decision rules qualified across all 3 pilots and all 3 private holdout projects, zero-drift provenance, and **247/247** root tests passing.
+
+## What's New in V3.0.0
+
+- **Governance Model**: Complete restructure of authority from versioned documents to compiled JSON with provenance tracking
+- **Shadow Evaluation**: V6 qualifications performed against V5 authority; no cutover without separate approval
+- **Knowledge Admission**: Explicit manifest of what enters the system, with SHA-256 digests and filing metadata
+- **Boundary Definition**: Clear separation between knowledge admitted for analysis vs. knowledge safe for distribution
+- **Inventory Tracking**: Complete public-knowledge inventory with aliases, categories, and retrieval index mapping
+- **Rule Registry**: Unified rule compilation from all sources with version tracking and policy precedence
+- **Authority Compilation**: Deterministic compiler that derives authority from admission, boundary, inventory, and rules
+- **Provenance Tracking**: All major outputs now record source files and digests
+- **Migration Qualification**: Formal V5-to-V6 migration report with 204/204 tests passing, all gates verified, evidence cleaned and curated
 
 ## Requirements
 
@@ -46,12 +88,11 @@ Ranked BM25 knowledge retrieval and exact filename reads are available now. The 
 Install the verified public release:
 
 ```bash
-npm install -g @ztothez/design-engineering@2.0.5
+npm install -g @ztothez/design-engineering@3.1.0
 zz-design --version
 ```
 
-The matching package archive, checksums, offline manifest, and retrieval index are attached to the
-[`v2.0.5` GitHub Release](https://github.com/ztothez/ztothez-design-engineering/releases/tag/v2.0.5).
+The matching package archive, checksums, offline manifest, and retrieval index are attached to the v3.1.0 GitHub Release.
 
 Build and test from source:
 
@@ -70,11 +111,11 @@ Build, install, and verify the distributable package:
 npm run package:smoke
 npm run release:pack
 npm run release:check
-npm install -g ./.ztothez-design-release/ztothez-design-engineering-2.0.5.tgz
+npm install -g ./.ztothez-design-release/ztothez-design-engineering-3.1.0.tgz
 zz-design --version
 ```
 
-See [`docs/installation.md`](docs/installation.md) for source and package installation plus exact setup for Codex, Claude Code, Cursor, Windsurf, Antigravity, GitHub Copilot, Kiro, Qoder, and Lovable.
+See `docs/installation.md` for source and package installation plus exact setup for Codex, Claude Code, Cursor, Windsurf, Antigravity, GitHub Copilot, Kiro, Qoder, and Lovable.
 
 Start the stdio MCP server:
 
@@ -107,7 +148,6 @@ Build the project first, then register the compiled entrypoint as a stdio MCP se
 Use the equivalent stdio MCP fields in Claude Code, Cursor, Windsurf, Antigravity, GitHub Copilot, Kiro, Codex, Qoder, or another MCP-capable environment. Lovable Desktop can register the same executable as a custom local MCP server.
 
 The package declares two equivalent MCP executable names:
-
 - `ztothez-design`
 - `zz-design`
 
@@ -116,11 +156,9 @@ The release archive is checked against an explicit distribution allowlist and in
 ## MCP Tools
 
 | Tool | Purpose |
-|---|---|
+|------|---------|
 | `search_design_knowledge` | Search approved knowledge with deterministic BM25 ranking, source paths, excerpts, confidence, and explicit no-match output. |
 | `evaluate_corpus_benchmark` | Score maintained positive and negative cases for retrieval, abstention, architecture, task completeness, and anti-slop behavior. |
-| `evaluate_knowledge_quality` | Evaluate maintained knowledge for source quality, retrieval quality, rule quality, product outcome, conflicts, supersession, and model parity. |
-| `qualify_source_removal` | Qualify V5 source removal with admitted public knowledge, representative query coverage, explicit gaps, and rollback-boundary evidence. |
 | `get_architecture_spec` | List or read approved architecture guidance. |
 | `get_figma_system_rules` | List or read Figma and design-system guidance. |
 | `get_design_intelligence` | List or read maintained brand, asset, icon, presentation, licensing, and visual-accessibility modules. |
@@ -145,67 +183,41 @@ Knowledge tools enforce category boundaries, Markdown-only reads, file-size limi
 
 Search before opening deep reference files:
 
-```text
-Call search_design_knowledge with:
-query: "semantic design tokens for operational status states"
-categories: ["skill", "design-intelligence", "architecture"]
-limit: 5
+```bash
+zz-design search-design-knowledge \
+  --query "semantic design tokens for operational status states" \
+  --categories skill design-intelligence architecture \
+  --limit 5
 ```
 
 The search index is defined by `knowledge-base/retrieval-scope.yaml`. A no-match response is a valid result. Do not replace it with content from ignored research or legacy archives.
 
 ## Command Line Workflows
 
-Validate and inventory the ignored local portfolio registry:
+**Governance and Authority**
+
+Validate and compile the governance model:
 
 ```bash
-zz-design portfolio validate-registry
-zz-design portfolio inventory
+npm run compile-authority -- --project-root .
+npm run validate-public-content -- --project-root .
 ```
 
-Create, verify, and delete a disposable snapshot without running a command in the original project:
+Evaluate knowledge quality:
 
 ```bash
-zz-design portfolio snapshot --project scenestart
+npm run evaluate-knowledge-quality -- \
+  --admission governance/knowledge-admission.json \
+  --inventory governance/public-knowledge-inventory.json
 ```
 
-Use `--keep` only when an isolated adapter needs the snapshot for a later local stage. The local
-registry lives at `.ztothez-design-local/portfolio-registry.yaml`; snapshots live under
-`.ztothez-design-benchmarks/`. Both are excluded from Git and package output. Linux executable
-stages use Bubblewrap and fail closed when process isolation is unavailable.
-
-Run a complete isolated baseline or cohort and verify source integrity:
+Qualify source removal:
 
 ```bash
-zz-design portfolio baseline --project scenestart --run scenestart-baseline
-zz-design portfolio benchmark --cohort development --run development-001
-zz-design portfolio verify-unchanged --run development-001
-zz-design portfolio report --run development-001
+npm run qualify-source-removal -- --project-root .
 ```
 
-Projects with a declared static fixture and product contract also run browser journeys, the
-consolidated quality gate, optional heuristic review, and checksummed artifact capture.
-
-Audit a repository:
-
-```bash
-npm run audit -- --repo PATH_TO_APPLICATION --fail-on error
-```
-
-Validate a product contract:
-
-```bash
-npm run validate-contract -- \
-  --contract knowledge-base/benchmarks/aegisops/product-contract.yaml \
-  --project-root .
-```
-
-Evaluate a heuristic review:
-
-```bash
-npm run review-heuristics -- \
-  --review knowledge-base/usability-evaluation/heuristic-review.template.yaml
-```
+**Design Validation**
 
 Validate a product design brief before planning generation:
 
@@ -213,8 +225,6 @@ Validate a product design brief before planning generation:
 npm run validate-brief -- \
   --brief knowledge-base/design-intelligence/product-design-brief.template.yaml
 ```
-
-The installed CLI provides the same report with `zz-design validate-brief --brief PATH`.
 
 Compile the validated brief into a deterministic, traceable design plan:
 
@@ -225,138 +235,12 @@ npm run compile-plan -- \
   --json
 ```
 
-The installed CLI equivalent is `zz-design compile-plan`. Planned downstream contracts remain
-provisional rather than being reported as implementation-ready.
-
-Generate a new independent React and TypeScript fixture from a ready plan:
-
-```bash
-mkdir -p .ztothez-design-generated
-zz-design generate-react \
-  --plan path/to/ready-design-plan.json \
-  --generation-root .ztothez-design-generated \
-  --output .ztothez-design-generated/example-app \
-  --portfolio-registry .ztothez-design-local/portfolio-registry.yaml \
-  --json
-```
-
-The output directory must not exist. Generation fails when the plan is not implementation-ready,
-the registry is invalid, a path is symlinked or escaping, or the target overlaps a read-only
-portfolio root. Version 1.0 creates a new independent fixture only; it does not patch an existing
-repository. See `knowledge-base/design-intelligence/generation-adapter.md`.
-
-Repair one supported finding in a generated fixture with retained before and after evidence:
-
-```bash
-zz-design repair-react \
-  --request path/to/repair-request.yaml \
-  --generation-root .ztothez-design-generated \
-  --target .ztothez-design-generated/example-app \
-  --portfolio-registry .ztothez-design-local/portfolio-registry.yaml \
-  --contract knowledge-base/benchmarks/aegisops/product-contract.yaml \
-  --project-root . \
-  --url http://127.0.0.1:4173 \
-  --profile responsive-overview \
-  --output .ztothez-design-repair/example \
-  --fail-on warning
-```
-
-The URL must be loopback and already running. Repairs are limited to exact, digest-bound
-replacements in generation-manifest-owned files. Repeated or failed verification restores the
-original target and produces an unresolved report. See
-`knowledge-base/design-intelligence/closed-loop-repair.md`.
-
-For a versioned browser task contract, `knowledge-base/design-intelligence/interaction-recovery-verification.md`
-adds retained start, success, failure, preserved-state, keyboard, export, and offline checkpoints.
-Only states declared applicable by the task and data model are verified; unsupported automation remains
-an explicit limitation.
-
-Qualify the three repository-owned delivery pilots after their declared browser profiles are
-captured, then evaluate equivalent development and locked-holdout evidence:
-
-```bash
-zz-design qualify-pilots \
-  --config knowledge-base/benchmarks/delivery-pilots.yaml \
-  --evidence-root .ztothez-design-runtime/v4-pilots
-
-zz-design evaluate-v4 \
-  --config knowledge-base/benchmarks/v4-evaluation.yaml \
-  --evidence-root .ztothez-design-runtime/v4-pilots
-```
-
-Run `npm run v4:qualification -- --pilot-evidence-root PATH` only after those browser reports exist.
-It retains command evidence and produces the final local qualification report under the ignored V4
-qualification directory. It does not publish, tag, or push a release.
-
-Validate the tracked public repository surface before publishing a branch or package:
-
-```bash
-npm run public-content:check
-```
-
-This gate scans tracked source in a Git workspace and packaged files in install smoke tests. It
-blocks private evidence roots, raw conversation identifiers, contact details, secret-like values,
-private machine paths, and unclassified public evidence without printing the matched sensitive
-value.
-
-Evaluate maintained knowledge quality before admitting new guidance or changing retrieval scope:
-
-```bash
-npm run knowledge-quality:check
-```
-
-This gate checks approved benchmark cases for explicit no-match behavior, rule provenance,
-conflict precedence, superseded-source handling, and shadow-model parity without reading ignored
-private archives.
-
-Qualify source removal before treating the public knowledge boundary as sufficient:
-
-```bash
-npm run source-removal:qualify
-```
-
-This gate verifies architecture, Figma, product-pattern, usability, visual-polish, provenance, and
-explicit-gap queries against admitted maintained sources. It keeps limitations separate and does not
-activate model cutover.
-
-Run the local V6 shadow comparison against retained pilot and authorized holdout evidence:
-
-```bash
-zz-design shadow-evaluate
-```
-
-This qualifies parity for the agent-facing outputs while keeping V5 authoritative. It writes the
-ignored report to `.ztothez-design-runtime/v6-shadow-cutover/` and never approves or performs a
-cutover.
-
-Prepare the local V5 owner migration packet after all V5 gates are expected to pass:
-
-```bash
-npm run v5:migration
-```
-
-This writes the ignored review packet to `.ztothez-design-runtime/v5-migration/`, including command
-logs, `migration-report.json`, `migration-report.md`, package and public-file lists, a draft release
-note, and an owner approval checklist. It does not commit, push, rewrite history, tag, publish npm,
-create a GitHub release, or deploy the website.
-
 Validate a design-intelligence deliverable:
 
 ```bash
 npm run validate-design -- \
   --manifest knowledge-base/design-intelligence/design-deliverable.template.yaml
 ```
-
-Verify an instrumented interface across the maintained responsive matrix and both implemented
-themes:
-
-```bash
-npm run verify-ui -- --url http://127.0.0.1:4173 --color-schemes light,dark
-```
-
-Composition verification is opt-in through `data-ztothez-design-composition="1.0"`. It checks
-decision order, action and region limits, status meaning, evidence-backed visual claims, rendered
-focus, state and chart contrast, and asset metadata without prescribing a universal style.
 
 Validate interface trust and data provenance:
 
@@ -372,41 +256,26 @@ npm run validate-information -- \
   --contract knowledge-base/design-intelligence/information-design.template.yaml
 ```
 
-Validate an interface comparison and require complete release evidence:
+**Quality Gates and Evaluation**
+
+Audit a repository:
 
 ```bash
-npm run validate-comparison -- \
-  --methodology knowledge-base/benchmarks/interface-quality/comparison-methodology.template.yaml \
-  --review knowledge-base/benchmarks/interface-quality/review.template.yaml \
-  --require-release-ready
+npm run audit -- --repo PATH_TO_APPLICATION --fail-on error
 ```
 
-Omit `--require-release-ready` while preparing an honest incomplete review. Structural validation can pass while the release decision remains blocked by missing stages or evidence classes.
-
-Compile only reviewer-supplied sessions marked `complete`:
+Run a complete profile quality gate:
 
 ```bash
-npm run compile-comparison -- \
-  --methodology knowledge-base/benchmarks/azure-optimizer/v2-human-review-methodology.yaml \
-  --base-review path/to/local-review.yaml \
-  --sessions path/to/local-completed-sessions \
-  --output .ztothez-design-runtime/review.completed.yaml \
-  --require-release-ready
+npm run quality-gate -- \
+  --contract knowledge-base/benchmarks/aegisops/product-contract.yaml \
+  --repo PATH_TO_APPLICATION \
+  --project-root . \
+  --url http://127.0.0.1:3000 \
+  --profile responsive-overview \
+  --output .ztothez-design-quality-gate/responsive-overview \
+  --fail-on error
 ```
-
-The compiler hashes each source session and reports matrix completeness, counterbalancing, category scores, task metrics, and the anonymous target-versus-comparator decision. It rejects draft templates and never creates human observations.
-
-Assess a disclosed maintainer review without claiming independent validation:
-
-```bash
-npm run assess-maintainer -- \
-  --methodology knowledge-base/benchmarks/azure-optimizer/v2-human-review-methodology.yaml \
-  --review .ztothez-design-runtime/review.completed.yaml \
-  --output .ztothez-design-runtime/maintainer-assessment.json \
-  --require-engineering-ready
-```
-
-The solo-maintainer track may authorize continued engineering when the target stages and maintainer-scored categories pass. It never changes the anonymous comparison thresholds or converts maintainer evidence into representative-user or external release evidence.
 
 Evaluate the maintained system corpus:
 
@@ -424,46 +293,55 @@ npm run verify-ui -- \
   --output .ztothez-design-runtime/responsive-overview
 ```
 
-Create and then compare a screenshot baseline while masking only declared dynamic regions:
+**Portfolio and Benchmarking**
+
+Validate and inventory the local portfolio registry:
 
 ```bash
-npm run verify-ui -- \
-  --url http://127.0.0.1:3000 \
-  --dynamic-selector "[data-runtime-clock]" \
-  --screenshot-baseline evidence/runtime/screenshots.json \
-  --update-screenshot-baseline
-
-npm run verify-ui -- \
-  --url http://127.0.0.1:3000 \
-  --dynamic-selector "[data-runtime-clock]" \
-  --screenshot-baseline evidence/runtime/screenshots.json
+zz-design portfolio validate-registry
+zz-design portfolio inventory
 ```
 
-Screenshot matching establishes only that the captured pixels and masking policy are unchanged in the current environment. It does not establish visual quality, task success, or approval of an intentional change.
-
-When Playwright cannot launch Chromium directly in a managed environment, start Chromium with a
-loopback CDP endpoint and set `ZTOTHEZ_DESIGN_CHROMIUM_CDP_URL` to its HTTP origin. Only loopback
-origins are accepted:
+Create, verify, and delete a disposable snapshot:
 
 ```bash
-chromium --headless --no-sandbox --remote-debugging-address=127.0.0.1 \
-  --remote-debugging-port=9222 --user-data-dir=/tmp/ztothez-design-cdp about:blank
-
-ZTOTHEZ_DESIGN_CHROMIUM_CDP_URL=http://127.0.0.1:9222 npm run verify-ui -- \
-  --url http://127.0.0.1:3000
+zz-design portfolio snapshot --project scenestart
 ```
 
-Run a complete profile quality gate:
+Run a complete isolated baseline:
 
 ```bash
-npm run quality-gate -- \
+zz-design portfolio baseline --project scenestart --run scenestart-baseline
+```
+
+**Generation and Repair**
+
+Generate a new independent React and TypeScript fixture from a ready plan:
+
+```bash
+mkdir -p .ztothez-design-generated
+zz-design generate-react \
+  --plan path/to/ready-design-plan.json \
+  --generation-root .ztothez-design-generated \
+  --output .ztothez-design-generated/example-app \
+  --portfolio-registry .ztothez-design-local/portfolio-registry.yaml \
+  --json
+```
+
+Repair one supported finding in a generated fixture:
+
+```bash
+zz-design repair-react \
+  --request path/to/repair-request.yaml \
+  --generation-root .ztothez-design-generated \
+  --target .ztothez-design-generated/example-app \
+  --portfolio-registry .ztothez-design-local/portfolio-registry.yaml \
   --contract knowledge-base/benchmarks/aegisops/product-contract.yaml \
-  --repo PATH_TO_APPLICATION \
   --project-root . \
-  --url http://127.0.0.1:3000 \
+  --url http://127.0.0.1:4173 \
   --profile responsive-overview \
-  --output .ztothez-design-quality-gate/responsive-overview \
-  --fail-on error
+  --output .ztothez-design-repair/example \
+  --fail-on warning
 ```
 
 Run `npm run COMMAND -- --help` for the complete options supported by each CLI workflow.
@@ -472,10 +350,10 @@ Run `npm run COMMAND -- --help` for the complete options supported by each CLI w
 
 The system keeps evidence types distinct:
 
-1. Automated evidence records deterministic source, contract, browser, network, and state checks.
-2. AI-assisted expert evidence identifies likely usability risks but does not represent user behavior.
-3. Human-expert evidence requires an attributable reviewer.
-4. Representative-user evidence records observed task performance with appropriate study context.
+- **Automated evidence** records deterministic source, contract, browser, network, and state checks
+- **AI-assisted expert evidence** identifies likely usability risks but does not represent user behavior
+- **Human-expert evidence** requires an attributable reviewer
+- **Representative-user evidence** records observed task performance with appropriate study context
 
 AI agents must never create human attestations or present generated observations as representative-user evidence. Open severity 3 and 4 heuristic findings become acceptance-criterion candidates that require review before contract integration.
 
@@ -483,41 +361,47 @@ AI agents must never create human attestations or present generated observations
 
 Use sources in this order:
 
-1. Current product requirements and repository behavior.
-2. Root [`SKILL.md`](SKILL.md).
-3. The selected benchmark contract and manifest.
-4. Maintained files in [`knowledge-base/`](knowledge-base/INDEX.md).
-5. Public standards or official platform documentation when the maintained corpus has a declared gap.
+1. Current product requirements and repository behavior
+2. Root `SKILL.md`
+3. The selected benchmark contract and manifest
+4. Maintained files in `knowledge-base/`
+5. Public standards or official platform documentation when the maintained corpus has a declared gap
 
-Historical research is outside the supported workflow. It is not a runtime dependency, retrieval fallback, implementation authority, or source to copy into production code. The authoritative workflow in [`SKILL.md`](SKILL.md) and the independence rules in [`ROADMAP.md`](ROADMAP.md) govern all new capabilities.
+Historical research is outside the supported workflow. It is not a runtime dependency, retrieval fallback, implementation authority, or source to copy into production code.
 
 ## Repository Layout
 
 | Path | Purpose |
-|---|---|
-| `SKILL.md` | Authoritative Agent Skill instructions. |
-| `src/server.ts` | MCP server and tool registration. |
-| `src/audit/` | Static repository audit engine. |
-| `src/runtime/` | Browser verification and evidence capture. |
-| `src/contracts/` | Product-contract and journey validation. |
-| `src/heuristics/` | Structured heuristic-review evaluation. |
-| `src/design-intelligence/` | Design-deliverable schema, provenance, token, contrast, icon, and presentation validation. |
-| `src/interface-trust/` | Interface-state truth, claim-source traceability, and history or export provenance validation. |
-| `src/information-design/` | Operational metric, finding, chart, hierarchy, collection, and answer-flow validation. |
-| `src/product-brief/` | Evidence-backed product intake and generation-readiness validation. |
-| `src/comparison/` | Anonymous comparison, claim-ledger, evidence-integrity, and release-readiness validation. |
-| `src/corpus/` | Versioned corpus loading, deterministic case evaluation, scoring, and reporting. |
-| `src/knowledge-quality/` | Source, retrieval, rule, conflict, supersession, and product-outcome evaluation. |
-| `src/source-removal/` | Archive-free source-removal qualification and representative query coverage. |
-| `src/retrieval/` | Approved-scope Markdown indexing and deterministic BM25 search. |
-| `src/quality-gate/` | Consolidated profile quality gate. |
-| `src/repair/` | Finding-bound generated-fixture repair, rollback, and before/after evidence. |
-| `src/aggregate/` | Multi-profile release aggregation. |
-| `cli/` | Stdio server and command-line entrypoints. |
-| `knowledge-base/` | Approved maintained guidance, schemas, benchmarks, provenance, and dependency records. |
-| `tests/` | Contract, MCP, audit, runtime, and quality-gate regression tests. |
-| `ci/` | Deterministic fixture and product-workflow example. |
-| `.github/workflows/quality.yml` | Active repository quality workflow. |
+|------|---------|
+| `SKILL.md` | Authoritative Agent Skill instructions |
+| `src/server.ts` | MCP server and tool registration |
+| `src/authority/` | Authority compilation, loading, validation, and schema |
+| `src/shadow/` | Shadow evaluation engine and reporting |
+| `src/v5-migration/` | V5-to-V6 migration qualification and testing |
+| `src/source-removal/` | Source-removal evaluation and verification |
+| `src/knowledge-quality/` | Knowledge quality scoring and reporting |
+| `src/public-content/` | Public-content policy validation |
+| `src/audit/` | Static repository audit engine |
+| `src/runtime/` | Browser verification and evidence capture |
+| `src/contracts/` | Product-contract and journey validation |
+| `src/heuristics/` | Structured heuristic-review evaluation |
+| `src/design-intelligence/` | Design-deliverable schema, provenance, token, contrast, icon, and presentation validation |
+| `src/interface-trust/` | Interface-state truth, claim-source traceability, and history or export provenance validation |
+| `src/information-design/` | Operational metric, finding, chart, hierarchy, collection, and answer-flow validation |
+| `src/product-brief/` | Evidence-backed product intake and generation-readiness validation |
+| `src/comparison/` | Anonymous comparison, claim-ledger, evidence-integrity, and release-readiness validation |
+| `src/corpus/` | Versioned corpus loading, deterministic case evaluation, scoring, and reporting |
+| `src/retrieval/` | Approved-scope Markdown indexing and deterministic BM25 search |
+| `src/quality-gate/` | Consolidated profile quality gate |
+| `src/repair/` | Finding-bound generated-fixture repair, rollback, and before/after evidence |
+| `src/aggregate/` | Multi-profile release aggregation |
+| `governance/` | Knowledge admission, boundary, inventory, and rule-registry manifests with schemas |
+| `model/` | Compiled authority and design-engineering model with schemas |
+| `cli/` | Stdio server and command-line entrypoints |
+| `knowledge-base/` | Approved maintained guidance, schemas, benchmarks, provenance, and dependency records |
+| `tests/` | Contract, MCP, audit, runtime, governance, and quality-gate regression tests |
+| `ci/` | Deterministic fixture and product-workflow example |
+| `.github/workflows/quality.yml` | Active repository quality workflow |
 
 ## Development
 
@@ -529,8 +413,27 @@ npm run independence:check
 npm run release:check
 ```
 
-The active GitHub workflow also validates clean-room isolation, both benchmark contracts, the maintained corpus, packed installation, offline release, an archive-free workspace mirror, and the deterministic browser fixture gate. It uploads the resulting evidence. See [`ci/README.md`](ci/README.md) before adapting the multi-profile workflow to a product repository.
+The active GitHub workflow also validates clean-room isolation, both benchmark contracts, the maintained corpus, packed installation, offline release, an archive-free workspace mirror, and the deterministic browser fixture gate. It uploads the resulting evidence. See `ci/README.md` before adapting the multi-profile workflow to a product repository.
 
 ## Project Status
 
-All nine V1, V2, and V3 roadmap items are implemented. See [`ROADMAP.md`](ROADMAP.md), [`V2-ROADMAP.md`](V2-ROADMAP.md), [`V3-ROADMAP.md`](V3-ROADMAP.md), and [`V3-HANDOFF.md`](V3-HANDOFF.md) for their evidence boundaries. The current private V3 requalification passes against an owner-authorized 12-project corpus and remains excluded from Git and package output. V2 includes an attributable human visual comparison of five candidates; it calibrates the static visual questions asked and does not claim representative-user interaction testing. All nine V4 items are implemented and qualified, covering evidence-gated product briefs, deterministic planning, contained fixture generation, visual composition checks, bounded repair, interaction and recovery contracts, three delivery pilots, locked holdout evaluation, package installation, offline release, and clean-room independence. V5 is locally implemented through the controlled migration packet; public commit, push, history rewrite, tag, npm publish, GitHub release, and website deployment remain separate owner approvals. Version `2.0.5` removes obsolete named reference markers from public repository tests and ignore rules, replaces them with explicit approved-path checks, and retains distribution-wide independence scanning. These results do not claim representative-user or universal design validation, and publishing the package does not activate the separate website.
+**V1–V3**: All roadmap items implemented. See `ROADMAP.md`, `V2-ROADMAP.md`, `V3-ROADMAP.md`, and `V3-HANDOFF.md` for evidence boundaries.
+
+**V4**: All nine items implemented and qualified, covering evidence-gated product briefs, deterministic planning, contained fixture generation, visual composition checks, bounded repair, interaction and recovery contracts, three delivery pilots, locked holdout evaluation, package installation, offline release, and clean-room independence.
+
+**V5**: Established migration pathway and authority model. Version 2.0.5 removes obsolete named reference markers from public tests and ignore rules, replaces them with explicit approved-path checks, and retains distribution-wide independence scanning.
+
+**V6 (Current—3.0.0)**: Complete governance and authority restructure with formal qualification:
+- Knowledge admission manifest with SHA-256 digests
+- Public-knowledge boundary and inventory with full retrieval-scope tracking
+- Compiled authority model with deterministic derivation
+- Shadow evaluation against V5 authority (no cutover without separate approval)
+- V5-to-V6 migration qualification: 204/204 tests passing, all verification gates passed
+- Evidence curated: 276 staged files (87 additions, 25 modifications, 164 deletions)
+- Authority remains V5; V6 capabilities qualified in shadow mode
+
+These results do not claim representative-user or universal design validation, and publishing the package does not activate the separate website.
+
+## Keywords
+
+design-engineering, mcp, product-design, quality-gate, ui, governance, authority-model, shadow-evaluation, knowledge-admission

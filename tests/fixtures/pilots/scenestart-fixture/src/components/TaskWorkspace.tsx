@@ -4,20 +4,20 @@ import { generatedPlan } from "../generated/plan";
 import { sourceBoundaries } from "../domain/source-mode";
 import { initialTaskState, taskReducer } from "../domain/task-state";
 import { SourceBoundaryPanel } from "./SourceBoundaryPanel";
+import { downloadText, exportProduction, loadProduction, parseProduction, projectKey } from "../domain/production";
+import { ProductionPreview } from "./ProductionPreview";
 
 export function TaskWorkspace() {
   const [state, dispatch] = useReducer(taskReducer, initialTaskState);
   const source = sourceBoundaries[state.mode];
 
-  const [handle, setHandle] = useState(() => {
-    try {
-      return localStorage.getItem('workshopHandle') || "";
-    } catch {
-      return "";
-    }
-  });
-  const [concept, setConcept] = useState("");
-  const [title, setTitle] = useState("");
+  const [initial] = useState(loadProduction);
+  const [handle, setHandle] = useState(initial.handle);
+  const [concept, setConcept] = useState(initial.concept);
+  const [title, setTitle] = useState(initial.title);
+  const [scenes, setScenes] = useState(initial.scenes);
+  const [restart, setRestart] = useState(0);
+  const project = { version: 2 as const, handle, concept, title, scenes: scenes.map((scene, index) => index === 0 ? { ...scene, title } : scene) };
   const [isPlaying, setIsPlaying] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [saved, setSaved] = useState(false);
@@ -27,10 +27,15 @@ export function TaskWorkspace() {
     if (source.canRunTask) queueMicrotask(() => dispatch({ type: "complete" }));
   }
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    const val = e.target.value;
-    if ((file && file.name === "invalid.json") || val.includes("invalid.json")) {
+    if (!file) return;
+    try {
+      if (file.size > 65536) throw new Error('Oversized project');
+      const imported = parseProduction(await file.text());
+      setHandle(imported.handle); setConcept(imported.concept); setTitle(imported.title); setScenes(imported.scenes);
+      setErrorMsg(''); setSaved(false); setIsPlaying(false); setRestart(value => value + 1);
+    } catch {
       setErrorMsg("Invalid project");
       dispatch({ type: "start" });
       queueMicrotask(() => dispatch({ type: "fail", message: "Invalid project" }));
@@ -38,9 +43,14 @@ export function TaskWorkspace() {
   };
 
   return (
+    <div className="scenestart-shell" data-ztothez-product="scenestart">
+      <header className="product-nav" data-ztothez-fidelity="product-navigation">
+        <a className="scene-brand" href="/learn">SCENESTART</a>
+        <nav aria-label="SceneStart navigation"><a href="/studio" aria-current="page">Studio</a><a href="/learn">Learn</a><a href="/workshop">Workshop</a><a href="/learn/release">Release</a></nav>
+      </header>
     <main className="workspace" data-ztothez-design-composition="1.0" data-ztothez-design-max-primary-actions="1" data-ztothez-design-max-visible-regions="4">
-      <header className="product-header" data-ztothez-design-priority="context">
-        <div>
+      <header className="product-header" data-ztothez-design-priority="context" data-ztothez-fidelity="product-identity">
+        <div data-ztothez-fidelity="studio-context">
           <p className="eyebrow">Operational decision workspace</p>
           <h1>Demo Studio</h1>
           <p className="lede">{generatedPlan.task.label}</p>
@@ -58,38 +68,35 @@ export function TaskWorkspace() {
             <span className={`status status--${state.phase}`} data-ztothez-design-status data-ztothez-design-status-purpose="task-phase" data-ztothez-design-state-visual data-ztothez-design-non-color-cue="visible-text">{state.phase}</span>
           </div>
 
-          <div className="finding" data-ztothez-design-priority="primary-outcome" data-ztothez-design-visual-claim="selected-record" data-ztothez-design-claim-basis="synthetic" data-ztothez-design-evidence-ref="local-fixture-priority-record-01">
-            <label>HANDLE<input value={handle} aria-label="Handle" onChange={e => setHandle(e.target.value)} /></label>
-            <label>CONCEPT<input value={concept} aria-label="Concept" onChange={e => setConcept(e.target.value)} /></label>
-            <label>TITLE<input value={title} aria-label="Title" onChange={e => setTitle(e.target.value)} /></label>
+          <div className="finding studio-editor" data-ztothez-design-priority="primary-outcome" data-ztothez-design-visual-claim="selected-record" data-ztothez-design-claim-basis="synthetic" data-ztothez-design-evidence-ref="local-fixture-priority-record-01">
+            <div className="project-fields" data-ztothez-fidelity="project-metadata">
+              <label><span>HANDLE</span><input maxLength={8} value={handle} aria-label="Handle" onChange={e => { setHandle(e.target.value); setSaved(false); }} /></label>
+              <label><span>CONCEPT</span><input maxLength={500} value={concept} aria-label="Concept" onChange={e => { setConcept(e.target.value); setSaved(false); }} /></label>
+              <label><span>TITLE</span><input maxLength={120} value={title} aria-label="Title" onChange={e => { setTitle(e.target.value); setSaved(false); }} /></label>
+              <label className="project-upload"><span>PROJECT FILE</span><input type="file" aria-label="Upload project" onChange={handleFileUpload} /></label>
+            </div>
+            <div data-ztothez-fidelity="production-preview"><ProductionPreview project={project} playing={isPlaying} restart={restart} /></div>
+            <p>Editable starter visuals; not an originality or release certification.</p>
 
-            <input type="file" aria-label="Upload project" onChange={handleFileUpload} />
-
+            <div className="production-actions" data-ztothez-fidelity="production-actions">
             {isPlaying ? (
               <button onClick={() => setIsPlaying(false)}>PAUSE</button>
             ) : (
               <button onClick={() => setIsPlaying(true)}>PLAY PRODUCTION</button>
             )}
-            <button onClick={() => setIsPlaying(true)}>RESTART</button>
+            <button onClick={() => { setRestart(value => value + 1); setIsPlaying(true); }}>RESTART</button>
 
             <button onClick={() => {
+              const content = JSON.stringify(parseProduction(JSON.stringify(project)), null, 2);
+              downloadText("scenestart-production.json", content, "application/json");
+              try { localStorage.setItem(projectKey, content); setErrorMsg(''); } catch { setErrorMsg('Storage unavailable. Keep the downloaded project.'); }
               setSaved(true);
-              const blob = new Blob(["{}"], { type: "application/json" });
-              const url = URL.createObjectURL(blob);
-              const a = document.createElement("a");
-              a.href = url;
-              a.download = "scenestart-production.json";
-              a.click();
             }}>SAVE PROJECT</button>
 
             <button onClick={() => {
-              const blob = new Blob(["test html"], { type: "text/html" });
-              const url = URL.createObjectURL(blob);
-              const a = document.createElement("a");
-              a.href = url;
-              a.download = "my-production.html";
-              a.click();
+              downloadText("my-production.html", exportProduction(project), "text/html");
             }}>EXPORT OFFLINE HTML</button>
+            </div>
 
             {saved && <div role="status">Project saved locally.</div>}
             {errorMsg && <div role="alert">{errorMsg}</div>}
@@ -109,7 +116,7 @@ export function TaskWorkspace() {
           </ol>
         </div>
 
-        <aside className="recovery" aria-labelledby="recovery-heading" data-ztothez-design-region="recovery">
+        <aside className="recovery" aria-labelledby="recovery-heading" data-ztothez-design-region="recovery" data-ztothez-fidelity="recovery">
           <p className="eyebrow">Recovery path</p>
           <h2 id="recovery-heading">Preserve context when a source is unavailable</h2>
           <p aria-live="polite" className="task-message">{state.message}</p>
@@ -123,7 +130,8 @@ export function TaskWorkspace() {
         </aside>
       </section>
 
-      <SourceBoundaryPanel mode={state.mode} onChange={(mode) => dispatch({ type: "select-mode", mode })} />
+      <section id="data-boundary" data-ztothez-fidelity="data-boundary"><SourceBoundaryPanel mode={state.mode} onChange={(mode) => dispatch({ type: "select-mode", mode })} /></section>
     </main>
+    </div>
   );
 }
