@@ -66,48 +66,35 @@ h3 { margin-bottom: var(--space-2); font-size: var(--font-size-item-title); }
 }
 
 .azure-shell {
-  --color-canvas: #030817;
-  --color-surface: #111a2d;
-  --color-surface-raised: #17233a;
-  --color-text: #f5f7fb;
-  --color-text-muted: #a7bad8;
-  --color-border: #293955;
-  --color-action: #2563eb;
-  --color-action-hover: #3b82f6;
-  --color-action-text: #ffffff;
-  --color-focus: #facc15;
-  --color-positive: #22c55e;
-  --color-negative: #fb7185;
-  --color-warning: #fbbf24;
   display: grid;
   grid-template-columns: 16rem minmax(0, 1fr);
-  min-height: 100vh;
+  min-height: var(--shell-min-height);
   background: var(--color-canvas);
   color: var(--color-text);
 }
-.product-nav { min-width: 0; border-right: 1px solid #24314a; background: #0b1222; padding: 1.5rem 1rem; }
-.nav-brand { display: flex; align-items: center; gap: .75rem; margin-bottom: 2rem; }
-.nav-brand span { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border: 1px solid #3b82f6; border-radius: .375rem; color: #60a5fa; font-size: .75rem; font-weight: 900; }
-.nav-brand strong { font-size: 1.05rem; }
-.product-nav nav { display: grid; gap: .4rem; }
-.product-nav nav a { min-height: 44px; min-width: 0; max-width: 100%; display: flex; align-items: center; border-radius: .35rem; color: #9fb4d4; padding: .7rem .85rem; text-decoration: none; overflow-wrap: anywhere; }
-.product-nav nav a[aria-current="page"] { background: #12316b; color: #70b7ff; }
-.product-nav nav a:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; }
-.azure-stage { min-width: 0; padding-inline: 1.5rem; }
-.azure-shell .workspace { width: min(100%, 78rem); }
-.azure-shell .product-header { border-bottom: 1px solid #1f2f4a; padding-bottom: 1.25rem; }
-.azure-shell .metric-summary div { border: 1px solid #293955; border-radius: .375rem; }
-.azure-shell .metric-summary dd { margin-top: .4rem; font-size: 1.4rem; font-weight: 850; color: #5ee78c; }
-.azure-shell .finding { border-left-color: #3b82f6; }
-.azure-shell .analysis-panel { background: #0c1426; padding: 1rem; }
+.product-nav { min-width: 0; border-right: var(--border-width) solid var(--shell-nav-border); background: var(--shell-nav-bg); padding: var(--space-5) var(--space-4); }
+.nav-brand { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-6); }
+.nav-brand span { display: grid; place-items: center; width: var(--shell-brand-size); height: var(--shell-brand-size); border: var(--border-width) solid var(--color-action-hover); border-radius: var(--shell-radius-md); color: var(--shell-brand-text); font-size: var(--font-size-label); font-weight: 900; }
+.nav-brand strong { font-size: var(--font-size-item-title); }
+.product-nav nav { display: grid; gap: var(--space-2); }
+.product-nav nav a { min-height: var(--size-control); min-width: 0; max-width: 100%; display: flex; align-items: center; border-radius: var(--shell-radius-md); color: var(--shell-nav-link); padding: var(--space-3) var(--space-3); text-decoration: none; overflow-wrap: anywhere; }
+.product-nav nav a[aria-current="page"] { background: var(--shell-nav-active-bg); color: var(--shell-nav-active-text); }
+.product-nav nav a:focus-visible { outline: var(--focus-width) solid var(--color-focus); outline-offset: var(--space-1); }
+.azure-stage { min-width: 0; padding-inline: var(--space-5); }
+.azure-shell .workspace { width: min(100%, var(--measure-workspace)); }
+.azure-shell .product-header { border-bottom: var(--border-width) solid var(--shell-header-border); padding-bottom: var(--space-5); }
+.azure-shell .metric-summary div { border: var(--border-width) solid var(--color-border); border-radius: var(--shell-radius-md); }
+.azure-shell .metric-summary dd { margin-top: var(--space-2); font-size: var(--font-size-section-title); font-weight: 850; color: var(--shell-metric-positive); }
+.azure-shell .finding { border-left-color: var(--color-action-hover); }
+.azure-shell .analysis-panel { background: var(--shell-analysis-bg); padding: var(--space-4); }
 .decision-layout + [data-ztothez-fidelity="data-boundary"] { margin-top: var(--space-5); }
 
 @media (max-width: 56rem) {
   .azure-shell { grid-template-columns: 1fr; }
-  .product-nav { border-right: 0; border-bottom: 1px solid #24314a; }
+  .product-nav { border-right: 0; border-bottom: var(--border-width) solid var(--shell-nav-border); }
   .product-nav nav { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 36rem) {
-  .azure-stage { padding-inline: .75rem; }
+  .azure-stage { padding-inline: var(--space-3); }
   .product-nav nav { grid-template-columns: 1fr; }
 }

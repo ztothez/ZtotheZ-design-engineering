@@ -55,3 +55,26 @@
     --color-warning: #fde047;
   }
 }
+
+.scenestart-shell {
+  --color-canvas: #07070d;
+  --color-surface: #10101a;
+  --color-surface-raised: #171522;
+  --color-text: #f5f0fa;
+  --color-text-muted: #c6b8cc;
+  --color-border: #393047;
+  --color-action: #b12bb8;
+  --color-action-hover: #d13bd8;
+  --color-action-text: #ffffff;
+  --color-focus: #f3c94d;
+  --color-positive: #77d7ab;
+  --color-negative: #ff8f96;
+  --color-warning: #f3c94d;
+  --shell-nav-border: #3a1640;
+  --shell-nav-bg: #090811;
+  --shell-brand: #ef4fe8;
+  --shell-nav-link: #c8b9d0;
+  --shell-header-border: #33273e;
+  --shell-preview-border: #493157;
+  --shell-preview-bg: #050609;
+}

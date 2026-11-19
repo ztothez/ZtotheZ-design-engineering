@@ -56,3 +56,46 @@
     --color-warning: #fde047;
   }
 }
+
+.aegis-shell {
+  --color-canvas: #050914;
+  --color-surface: #111827;
+  --color-surface-raised: #182235;
+  --color-text: #f5f7ff;
+  --color-text-muted: #a9b9d4;
+  --color-border: #34445f;
+  --color-action: #7c3aed;
+  --color-action-hover: #8b5cf6;
+  --color-action-text: #ffffff;
+  --color-focus: #fbbf24;
+  --color-positive: #4ade80;
+  --color-negative: #f87171;
+  --color-warning: #fbbf24;
+  --shell-nav-border: #24314a;
+  --shell-nav-bg: #070b18;
+  --shell-nav-muted: #8ea3c5;
+  --shell-nav-link: #b7c8e5;
+  --shell-nav-active-border: #6d3dcc;
+  --shell-nav-active-bg: #1d123b;
+  --shell-nav-active-text: #e3d7ff;
+  --shell-card-border: #283752;
+  --shell-card-bg: #111a2c;
+  --shell-banner-border: #55308e;
+  --shell-banner-bg: #0d1020;
+  --shell-accent-bright: #a78bfa;
+  --shell-banner-sub: #9eb0ce;
+  --shell-badge-border: #8a5a09;
+  --shell-strip-border: #293850;
+  --shell-meta-border: #33425d;
+  --shell-meta-bg: #0c1424;
+  --shell-grid-border: #263650;
+  --shell-radius-sm: 0.25rem;
+  --shell-radius-md: 0.375rem;
+  --shell-radius-pill: 999px;
+  --shell-space-xs: 0.35rem;
+  --shell-space-sm: 0.75rem;
+  --shell-space-md: 1rem;
+  --shell-space-lg: 1.25rem;
+  --shell-min-height: 100vh;
+  --shell-brand-size: 2.25rem;
+}
